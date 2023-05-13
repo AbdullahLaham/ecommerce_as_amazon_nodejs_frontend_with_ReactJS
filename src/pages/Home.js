@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import Marquee from 'react-fast-marquee';
+import BlogCard from '../components/BlogCard';
 const Home = () => {
   return (
-    <>
-        <section className='min-h-[100vh]'>
+    <div className='bg-[#f0f0f0]'>
+        <section className=''>
           <div className='flex gap-2 justify-center mx-[.5rem] my-2'>
             <div className='col-l max-w-[50%] '>
               <div className='relative '>
@@ -74,10 +76,162 @@ const Home = () => {
           </div>
 
         </section>
-        <section>
-          
+        <section  className='px-11 w-[100%]'>
+          <div className='flex items-center justify-center gap-7 py-[2rem]'>
+            <div className='flex items-center justify-start gap-[.5rem] w-[18%]'>
+              <img src='images/service.png' alt='Services' className='' />
+              <div className='flex flex-col items-start justify-start'>
+                <h6 className='font-bold text-[1.1rem] '>Free Shipping</h6>
+                <p className='text-gray-400'>From all orders over $50</p>
+              </div>
+            </div>
+            <div className='flex items-center justify-start gap-[1rem] w-[18%]'>
+              <img src='images/service-02.png' alt='Services' className='' />
+              <div className='flex flex-col items-start justify-start'>
+                <h6 className='font-bold text-[1.1rem] '>Daily Surprise Offers</h6>
+                <p className='text-gray-400'>Save up to 25% off</p>
+              </div>
+            </div>
+            <div className='flex items-center justify-start gap-[1rem] w-[18%]'>
+              <img src='images/service-03.png' alt='Services' className='' />
+              <div className='flex flex-col items-start justify-start'>
+                <h6 className='font-bold text-[1.1rem] '>Support 24/7</h6>
+                <p className='text-gray-400'>Shop with an expert</p>
+              </div>
+            </div>
+            <div className='flex items-center justify-start gap-[1rem] w-[18%]'>
+              <img src='images/service-04.png' alt='Services' className='' />
+              <div className='flex flex-col items-start justify-start'>
+                <h6 className='font-bold text-[1.1rem] '>Affordable Prices</h6>
+                <p className='text-gray-400'>Get Factory direct price</p>
+              </div>
+            </div>
+            <div className='flex items-center justify-start gap-[1rem] w-[18%]'>
+              <img src='images/service-05.png' alt='Services' className='' />
+              <div className='flex flex-col items-start justify-start'>
+                <h6 className='font-bold text-[1.1rem] '>Secure Payments</h6>
+                <p className='text-gray-400'>100% Protected Payments</p>
+              </div>
+            </div>
+
+          </div>
+
         </section>
-    </>
+        <section className='w-[100%] '>
+          <div className='flex flex-wrap items-center gap-7 py-[2rem] mx-11 bg-white p-11'>
+
+            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+              <div>
+                <h6 className='font-bold text-xl'>Music & Gaming</h6>
+                <p>10 Items</p>
+              </div>
+              <img src='images/camera.jpg' alt='camera' />
+            </div>
+
+            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+              <div>
+                <h6 className='font-bold text-xl'>Smart Watches</h6>
+                <p>10 Items</p>
+              </div>
+              <img src='images/watch.jpg' className='w-[7rem]' alt='watch' />
+            </div>
+            
+
+            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+              <div>
+                <h6 className='font-bold text-xl'>Smart TV</h6>
+                <p>10 Items</p>
+              </div>
+              <img src='images/tv.jpg' alt='camera' />
+            </div>
+
+            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+              <div>
+                <h6 className='font-bold text-xl'>Headphones</h6>
+                <p>10 Items</p>
+              </div>
+              <img src='images/headphone.jpg' className='w-[7rem]' alt='watch' />
+            </div>
+
+
+
+
+
+            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+              <div>
+                <h6 className='font-bold text-xl'>Home Appliances</h6>
+                <p>10 Items</p>
+              </div>
+              <img src='images/homeapp.jpg' className='w-[7rem]' alt='watch' />
+            </div>
+
+            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+              <div>
+                <h6 className='font-bold text-xl'>Portable Speaker</h6>
+                <p>10 Items</p>
+              </div>
+              <img src='images/tab1.jpg' className='w-[7rem]' alt='watch' />
+            </div>
+
+            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+              <div>
+                <h6 className='font-bold text-xl'>Tablet</h6>
+                <p>10 Items</p>
+              </div>
+              <img src='images/headphone.jpg' className='w-[7rem]' alt='watch' />
+            </div>
+
+            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+              <div>
+                <h6 className='font-bold text-xl'>Boards</h6>
+                <p>10 Items</p>
+              </div>
+              <img src='images/tab2.jpg' className='w-[7rem]' alt='watch' />
+            </div>
+
+            
+          </div>
+        </section>
+        <section className=''>
+          <div className='flex items-center justify-between marquee'>
+            <Marquee className=''>
+              <div className='mx-4 w-25'>
+                <img src='images/brand-01.png' alt='brand' />
+              </div>
+              <div className='mx-4 w-25'>
+                <img src='images/brand-02.png' alt='brand' />
+              </div>
+              <div className='mx-4 w-25'>
+                <img src='images/brand-03.png' alt='brand' />
+              </div>
+              <div className='mx-4 w-25'>
+                <img src='images/brand-04.png' alt='brand' />
+              </div>
+              <div className='mx-4 w-25'>
+                <img src='images/brand-05.png' alt='brand' />
+              </div>
+              <div className='mx-4 w-25'>
+                <img src='images/brand-06.png' alt='brand' />
+              </div>
+              <div className='mx-4 w-25'>
+                <img src='images/brand-07.png' alt='brand' />
+              </div>
+              <div className='mx-4 w-25'>
+                <img src='images/brand-08.png' alt='brand' />
+              </div>
+            </Marquee>
+          </div>
+
+        </section>
+        <section>
+          <div className='flex items-center gap-8 mx-11'>
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+            <BlogCard />
+          </div>
+        </section>
+    </div>
   )
 }
 
