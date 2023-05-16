@@ -28,6 +28,7 @@ const Header = () => {
 
         </div> */}
         </header>
+
         <header className='header-upper py-3 bg-[#131921] px-[2rem]'>
             <div className='flex items-center justify-between'>
                 <h1 className='text-white text-2xl font-bold '>Abed Store</h1>
@@ -69,6 +70,7 @@ const Header = () => {
                 </div>
             </div>
         </header>
+        
         <header className='py-0 flex items-center gap-2 px-[2rem] bg-[#232f3e] text-white'>
             <div className=''>
                 <FormControl className='focus:border-none' sx={{ m: 1, minWidth: 120, backgroundColor: '#2d3c4e', borderRadius: '.2rem', width: "13rem"}} size="small">
@@ -96,7 +98,7 @@ const Header = () => {
             </div>
             <div className='flex items-center justify-between gap-7'>
                 <NavLink className={'text-white text-[12px] font-bold tracking-widest uppercase '} to='/'>Home</NavLink>
-                <NavLink className={'text-white text-[12px] font-bold tracking-widest uppercase '} to='/'>Our Store</NavLink>    
+                <NavLink className={'text-white text-[12px] font-bold tracking-widest uppercase '} to='/store'>Our Store</NavLink>    
                 <NavLink className={'text-white text-[12px] font-bold tracking-widest uppercase '} to='/blogs'>Blogs</NavLink>    
                 <NavLink className={'text-white text-[12px] font-bold tracking-widest uppercase '} to='/contact'>Contact</NavLink>    
             </div>        

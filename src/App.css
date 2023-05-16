@@ -25,3 +25,54 @@ a {
 .MuiSelect-select, #demo-select-small {
   color: wheat;
 }
+
+.action-bar {
+  display: none;
+  opacity: 0;
+  transition: .4s ease ;
+}
+
+.product-card:hover .action-bar {
+  opacity: 1;
+  right: 1rem;
+}
+
+.product-card .product-image:hover > img:nth-child(1) {
+  display: none;
+  opacity: 0;
+  transition: .4s ease ;
+
+}
+
+.product-card .product-image:hover > img:nth-child(2) {
+  display: flex;
+  opacity: 1;
+  transition: .4s ease ;
+}
+
+.wrapper {
+  border: 1px solid rgb(201, 201, 255);
+  height: 1rem;
+  border-radius: .6rem;
+}
+
+.container {
+  /* background-color: pink; */
+}
+
+.barCompleted {
+  background-color: rgb(0, 191, 255);
+  width: 50%;
+  height: 1rem;
+  border-radius: .6rem;
+}
+
+.label {
+  opacity: 0;
+}
+
+.form-check-input, form-check-input:hover, form-check-input:checked {
+  accent-color: rgb(255, 211, 130);
+  color: wheat;
+
+}

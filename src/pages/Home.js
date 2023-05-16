@@ -2,9 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import Marquee from 'react-fast-marquee';
 import BlogCard from '../components/BlogCard';
+import ProductCard from '../components/ProductCard';
+import SpecialProduct from '../components/SpecialProduct';
 const Home = () => {
   return (
     <div className='bg-[#f0f0f0]'>
+
+      
         <section className=''>
           <div className='flex gap-2 justify-center mx-[.5rem] my-2'>
             <div className='col-l max-w-[50%] '>
@@ -76,6 +80,8 @@ const Home = () => {
           </div>
 
         </section>
+
+
         <section  className='px-11 w-[100%]'>
           <div className='flex items-center justify-center gap-7 py-[2rem]'>
             <div className='flex items-center justify-start gap-[.5rem] w-[18%]'>
@@ -117,6 +123,8 @@ const Home = () => {
           </div>
 
         </section>
+
+
         <section className='w-[100%] '>
           <div className='flex flex-wrap items-center gap-7 py-[2rem] mx-11 bg-white p-11'>
 
@@ -192,6 +200,83 @@ const Home = () => {
             
           </div>
         </section>
+
+
+        {/* Featured Collection */}
+        <section>
+          <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Featured Collection</h3>
+          <div className='flex items-center gap-8 mx-11'>
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+          </div>
+        </section>
+
+        {/* famous products */}
+        <section className='py-5 flex items-center mx-11 gap-2'>
+          <div className='relative w-[20rem] rounded-[1rem]'>
+            <img src='images/famous-1.webp' alt='product' className='object-cover' />
+            <div className='card-content absolute top-[13%] left-[7%] font-semibold  text-white'>
+              <h5 className='text-[.8rem] text-gray-200 leading-[20px] '>Big Screen</h5>
+              <h6 className='text-[1.3rem] '>Smart Watch Series 7</h6>
+              <p className='text-[.8rem] text-gray-200'>From $399 $16.62/mo. for 4 months</p>
+
+            </div>
+          </div>
+          <div className='relative w-[20rem] rounded-[1rem]'>
+            <img src='images/famous-2.webp' alt='product' className='object-cover' />
+            <div className='card-content absolute top-[13%] left-[7%] font-semibold '>
+              <h5 className='text-[.8rem] text-gray-400 leading-[20px] '>Big Screen</h5>
+              <h6 className='text-[1.3rem] '>Smart Watch Series 7</h6>
+              <p className='text-[.8rem] text-gray-400'>From $399 $16.62/mo. for 4 months</p>
+
+            </div>
+          </div>
+          <div className='relative w-[20rem] rounded-[1rem]'>
+            <img src='images/famous-3.webp' alt='product' className='object-cover' />
+            <div className='card-content absolute top-[13%] left-[7%] font-semibold '>
+              <h5 className='text-[.8rem] text-gray-400 leading-[20px] '>Big Screen</h5>
+              <h6 className='text-[1.3rem] '>Smart Watch Series 7</h6>
+              <p className='text-[.8rem] text-gray-400'>From $399 $16.62/mo. for 4 months</p>
+
+            </div>
+          </div>
+          <div className='relative w-[20rem] rounded-[1rem]'>
+            <img src='images/famous-4.webp' alt='product' className='object-cover' />
+            <div className='card-content absolute top-[13%] left-[7%] font-semibold '>
+              <h5 className='text-[.8rem] text-gray-400 leading-[20px] '>Big Screen</h5>
+              <h6 className='text-[1.3rem] '>Smart Watch Series 7</h6>
+              <p className='text-[.8rem] text-gray-400'>From $399 $16.62/mo. for 4 months</p>
+
+            </div>
+          </div>
+        </section>
+        {/* Special Wrapper */}
+        <section>
+          <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Special Products</h3>
+          <div className='px-11'>
+            
+            <div className='flex items-center justify-start gap-[1rem]'>
+              <SpecialProduct />
+              <SpecialProduct />
+              <SpecialProduct />
+            </div>
+          </div>
+        </section>
+
+        {/* Popular Products Collection */}
+        <section>
+          <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Our Popular Products</h3>
+          <div className='flex items-center gap-8 mx-11'>
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+          </div>
+        </section>
+
+        {/* Marque Warpper */}
         <section className=''>
           <div className='flex items-center justify-between marquee'>
             <Marquee className=''>
@@ -223,7 +308,10 @@ const Home = () => {
           </div>
 
         </section>
+        
+        {/* Blog Wrapper */}
         <section>
+          <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Our Latest Blogs</h3>
           <div className='flex items-center gap-8 mx-11'>
             <BlogCard />
             <BlogCard />
