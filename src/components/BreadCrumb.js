@@ -5,12 +5,12 @@ const BreadCrumb = (props) => {
   const {title} = props;
 
   return (
-    <div className='breadcrumb py-4 '>
-        <div className='flex items-center justify-center '>
+    <div className='breadcrumb py-2 '>
+        <div className='flex items-center justify-center py-3'>
             <p className='text-center mb-0 '>
-                <Link to='/' className='text-black'>
+                <Link to='/' className='text-black mb-0 text-[1.1rem]'>
                     Home
-                </Link> / <Link to='/store'>
+                </Link> / <Link to='/store' className='text-black font-bold mb-0 text-[1.1rem]'>
                     {title}
                 </Link>
 

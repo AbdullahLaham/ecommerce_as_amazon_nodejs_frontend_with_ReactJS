@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 import ReactStars from "react-rating-stars-component";
 
 import {BsHeart, BsShare, BsEye, BsHandbag} from 'react-icons/bs';
-import { Link } from 'react-router-dom';
-const ProductCard = () => {
+import { Link, useLocation } from 'react-router-dom';
+const ProductCard = ({grid}) => {
     const [rating, setRating] = useState(0);
     const changeRating = (newRating) => {
         setRating(newRating);
       };
+    let location = useLocation();
   return (
-    <div className='bg-white rounded-md relative p-2 product-card'>
-        <Link className='cursor-pointer  p-1 rounded-full hover:text-red-500 font-bold absolute right-[1rem]'>
+    <div className={`bg-white ${grid == 3 ? 'flex': ""} mb-2 mx-1 items-center rounded-md relative product-card gr-${grid} px-2 py-2`}>
+        <Link className='cursor-pointer  p-1 rounded-full hover:text-red-500 font-bold absolute top-5 right-[1rem]'>
             <BsHeart className='font-bold' />
         </Link>
         <div className='product-image'>

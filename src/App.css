@@ -8,6 +8,7 @@
 }
 body {
   font-family: "Rubik", sans-serif;
+  background-color: rgb(241, 241, 241);
 }
 a {
   text-decoration: none;
@@ -22,7 +23,9 @@ a {
   color: white;
 
 }
-.MuiSelect-select, #demo-select-small {
+
+
+.header .MuiSelect-select, .header #demo-select-small {
   color: wheat;
 }
 
@@ -71,8 +74,37 @@ a {
   opacity: 0;
 }
 
-.form-check-input, form-check-input:hover, form-check-input:checked {
+.form-check-input, .form-check-input:hover, .form-check-input:checked {
   accent-color: rgb(255, 211, 130);
   color: wheat;
 
+}
+.select-filter {
+  border: none;
+  outline: none;
+}
+.select-filter option {
+  padding: 1rem 0;
+}
+
+
+
+.gr-1 {
+  width: 48%;
+  margin-left: 1rem;
+}
+.gr-1 img {
+  margin: 0 auto;
+}
+.gr-2 {
+  width: 30%;
+}
+.gr-2 img {
+  margin: auto;
+}
+.gr-3 {
+  width: 100%;
+}
+.gr-4 {
+  width: 24%;
 }

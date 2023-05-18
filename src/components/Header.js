@@ -9,10 +9,10 @@ import { Link, NavLink } from 'react-router-dom';
 
 const Header = () => {
 
-    const [age, setAge] = React.useState('');
+    const [category, setCategory] = React.useState('');
 
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setCategory(event.target.value);
     };
 
   return (
@@ -42,25 +42,25 @@ const Header = () => {
                 </div>
                 <div className=' flex items-center justify-between gap-10 text-white text-sm'>
                     <div className=''>
-                        <Link className='gap-2 flex items-center justify-center'>
+                        <Link to='/compare-product' className='gap-2 flex items-center justify-center'>
                             <img className='w-[35px] h-[35px]' src='images/compare.svg' alt='compare' />
                             <p className=''>Compare <br /> Products</p>
                         </Link>
                     </div>
                     <div className=''>
-                        <Link className='gap-2 flex items-center justify-center'>
+                        <Link to='/wishlist' className='gap-2 flex items-center justify-center'>
                             <img className='w-[35px] h-[35px]' src='images/wishlist.svg' alt='wishlist' />
                             <p className=''>Favorite <br /> Wishlist</p>
                         </Link>
                     </div>
                     <div className=''>
-                        <Link className='gap-2 flex items-center justify-center'>
+                        <Link to='/login' className='gap-2 flex items-center justify-center'>
                             <img className='w-[35px] h-[35px]' src='images/user.svg' alt='wishlist' />
                             <p className=''>Log in <br /> My Account</p>
                         </Link>
                     </div>
                     <div className=''>
-                        <Link className='flex items-center gap-2'>
+                        <Link to='/cart' className='flex items-center gap-2'>
                             <img className='w-[35px] h-[35px]' src='images/cart.svg' alt='cart' />
                             <div className='flex flex-col '>
                                 <p className='rounded-md w-[1.5rem] h-[1.5rem] p-1 bg-white text-black flex items-center justify-center'>0</p>
@@ -71,7 +71,7 @@ const Header = () => {
             </div>
         </header>
         
-        <header className='py-0 flex items-center gap-2 px-[2rem] bg-[#232f3e] text-white'>
+        <header className='py-0 flex items-center gap-2 px-[2rem] bg-[#232f3e] text-white header'>
             <div className=''>
                 <FormControl className='focus:border-none' sx={{ m: 1, minWidth: 120, backgroundColor: '#2d3c4e', borderRadius: '.2rem', width: "13rem"}} size="small">
                     <InputLabel id="demo-select-small-label"  >
@@ -83,7 +83,7 @@ const Header = () => {
                     <Select
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        value={age}
+                        value={category}
                         label="Age"
                         onChange={handleChange}
                     >
