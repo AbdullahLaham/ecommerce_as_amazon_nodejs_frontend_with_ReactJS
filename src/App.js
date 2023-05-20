@@ -16,6 +16,12 @@ import Wishlist from './pages/Wishlist';
 import Cart from './pages/Cart';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import SingleBlog from './pages/SingleBlog';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import RefundPolicy from './pages/RefundPolicy';
+import ShippingPolicy from './pages/ShippingPolicy';
+import TermAndConditions from './pages/TermAndConditions';
+import SingleProduct from './pages/SingleProduct';
 
 function App() {
   return (
@@ -34,7 +40,12 @@ function App() {
           <Route path='signup' element={<SignupPage />} />
           <Route path='forgot-password' element={<ForgotPassword />} />
           <Route path='reset-password' element={<ResetPassword />} />
-
+          <Route path='blog-details/:id' element={<SingleBlog />} />
+          <Route path='product/:id' element={<SingleProduct />} />
+          <Route path='privacy-policy' element={<PrivacyPolicy />} />
+          <Route path='refund-policy' element={<RefundPolicy />} />
+          <Route path='shipping-policy' element={<ShippingPolicy />} />
+          <Route path='terms-conditions' element={<TermAndConditions />} />
 
         </Route>
       </Routes>

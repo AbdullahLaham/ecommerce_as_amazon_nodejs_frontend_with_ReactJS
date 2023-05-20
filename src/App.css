@@ -108,3 +108,8 @@ a {
 .gr-4 {
   width: 24%;
 }
+
+.product-card {
+  box-shadow: 2px 7px 14px 1px rgba(0,0,0,0.26);
+
+}

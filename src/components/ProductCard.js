@@ -10,13 +10,13 @@ const ProductCard = ({grid}) => {
       };
     let location = useLocation();
   return (
-    <div className={`bg-white ${grid == 3 ? 'flex': ""} mb-2 mx-1 items-center rounded-md relative product-card gr-${grid} px-2 py-2`}>
+    <Link to='/product/123' className={`product-card bg-white ${grid == 3 ? 'flex': ""} mb-2 items-center rounded-md relative product-card gr-${grid} px-2 py-2`}>
         <Link className='cursor-pointer  p-1 rounded-full hover:text-red-500 font-bold absolute top-5 right-[1rem]'>
             <BsHeart className='font-bold' />
         </Link>
         <div className='product-image'>
-            <img src='images/watch.jpg' alt='product image' className='h-[15rem]' />
-            <img src='images/tab1.jpg' alt='product image' className='h-[15rem] hidden  object-cover' />
+            <img src='/images/watch.jpg' alt='product image' className='h-[13rem] mx-auto' />
+            <img src='/images/tab1.jpg' alt='product image' className='h-[13rem] mx-auto hidden  object-cover' />
         </div>
         <div className='details'>
             <h6 className='text-red-700 font-semibold '>Havels</h6>
@@ -38,7 +38,7 @@ const ProductCard = ({grid}) => {
                 <BsHandbag className='' />
             </Link>
         </div>
-    </div>
+    </Link>
   )
 }
 

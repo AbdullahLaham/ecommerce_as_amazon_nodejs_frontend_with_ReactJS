@@ -1,8 +1,9 @@
 import React from 'react'
 import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const ForgotPassword = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Meta title='Forgot Password ' />
@@ -14,7 +15,7 @@ const ForgotPassword = () => {
           <div className='flex flex-col items-center gap-3 w-[100%]'>
             <input type='text' className='p-2 w-[100%] bg-[#eeeeee] rounded-l-sm border-inherit outline-none' placeholder='Email'  />
           </div>
-          <button type='submit' className='font-semibold mt-4 px-3 py-1 text-white bg-[#353a41] hover:bg-[#212529] rounded-[1rem] cursor-pointer w-[6rem] mx-auto text-center  '>
+          <button onClick={() => {navigate('/reset-password')}} type='submit' className='font-semibold mt-4 px-3 py-1 text-white bg-[#353a41] hover:bg-[#212529] rounded-[1rem] cursor-pointer w-[6rem] mx-auto text-center  '>
             Submit
           </button>
           <Link to='' className='font-bold mt-0 px-3 py-1rounded-[1rem] cursor-pointer w-[6rem] mx-auto text-center  '>
