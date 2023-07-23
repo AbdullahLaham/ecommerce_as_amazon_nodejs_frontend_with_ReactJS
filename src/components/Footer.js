@@ -4,7 +4,7 @@ import {BsFacebook, BsLinkedin, BsGithub, BsYoutube, BsInstagram} from 'react-ic
 const Footer = () => {
   return (
     <>
-        <footer className='py-3 bg-[#232f3e] flex items-center justify-center gap-[4rem] w-[100%]'>
+        <footer className='py-3 flex-col lg:flex-row md:flex-row   bg-[#232f3e] flex items-center justify-center lg:gap-[4rem] gap-[1rem] w-[100%]'>
           <div className='flex items-center justify-center gap-5 text-white'>
             <img src='images/newsletter.png'  alt='' />
             <h2 className='text-2xl font-semibold  '>SignUp for Newsletter</h2>
@@ -14,10 +14,10 @@ const Footer = () => {
             <span className='rounded-r-sm  active:bg-[#171f29] transition-all mr-2 p-1 rounded-md cursor-pointer bg-[#232f3e] text-white text-[.9rem]'>SUBSCRIBE</span>
           </div>
         </footer>
-        <footer className='py-3 bg-[#232f3e] flex items-start justify-between px-[5rem] text-white'>
-          <div className='flex flex-col items-start'>
+        <footer className='flex-col lg:flex-row md:flex-row py-3 bg-[#232f3e] flex items-start justify-between px-[5rem] text-white'>
+          <div className='flex flex-col w-[100%] items-center gap-3 lg:items-start'>
             <h4  className='text-[1.2rem] font-bold'>Contact Us</h4>
-            <div className='flex flex-col gap-3 items-start'>
+            <div className='flex flex-col w-[100%] items-center gap-3 lg:items-start'>
               <address>Gaza Strip,
                 <br /> Khanyounis
                 <br />Pin Code: 131103
@@ -45,9 +45,9 @@ const Footer = () => {
 
 
           </div>
-          <div className=''>
+          <div className='flex flex-col gap-3 lg:items-start w-[100%] items-center '>
             <h4  className='text-[1.2rem] font-bold' >Information</h4>
-            <div className='flex flex-col gap-3 items-start'>
+            <div className='flex flex-col w-[100%] items-center gap-3 lg:items-start'>
               <Link>Privacy Policy</Link>
               <Link>Refund Policy</Link>
               <Link>Shipping Policy</Link>
@@ -57,9 +57,9 @@ const Footer = () => {
             </div>
 
           </div>
-          <div className=''>
+          <div className='flex flex-col gap-3 lg:items-start w-[100%] items-center'>
             <h4  className='text-[1.2rem] font-bold' >Account</h4>
-            <div className='flex flex-col gap-3 items-start'>
+            <div className='flex flex-col w-[100%] items-center gap-3 lg:items-start'>
               <Link>Search</Link>
               <Link>About Us</Link>
               <Link>Faq</Link>
@@ -69,9 +69,9 @@ const Footer = () => {
             </div>
 
           </div>
-          <div className='flex flex-col gap-3 items-start'>
+          <div className='flex flex-col gap-3 lg:items-start w-[100%] items-center '>
             <h4 className='text-[1.2rem] font-bold'>Quik Links</h4>
-            <div className='flex flex-col gap-3 items-start'>
+            <div className='flex flex-col w-[100%] items-center gap-3 lg:items-start'>
               <Link>Accessories</Link>
               <Link>Laptops</Link>
               <Link>Headphones</Link>

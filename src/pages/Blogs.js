@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
 import BlogCard from '../components/BlogCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBlogs } from '../features/blog/blogSlice';
 
 const Blogs = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getBlogs());
+    }, []);
+    const {blogs} = useSelector((state) => state?.blog);
+    console.log(blogs, 'tttttttt')
   return (
     <>
         <Meta title={'Blogs'} />
@@ -31,10 +39,11 @@ const Blogs = () => {
                         Our Latest Blogs.
                     </h5>
                     <div className='flex flex-wrap items-center gap-2 '>
-                        <BlogCard />
-                        <BlogCard />
-                        <BlogCard />
-                        <BlogCard />
+                        {blogs?.map((blog) => {
+                            return (
+                                <BlogCard blog={blog} />
+                            )
+                        })}
 
                     </div>
 

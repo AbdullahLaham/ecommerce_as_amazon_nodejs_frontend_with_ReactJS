@@ -22,6 +22,11 @@ import RefundPolicy from './pages/RefundPolicy';
 import ShippingPolicy from './pages/ShippingPolicy';
 import TermAndConditions from './pages/TermAndConditions';
 import SingleProduct from './pages/SingleProduct';
+import Checkout from './pages/Checkout';
+import CheckoutSuccess from './features/CheckoutSuccess';
+import NotFound from './pages/NotFound';
+import Profile from './pages/Profile';
+import Orders from './pages/Orders';
 
 function App() {
   return (
@@ -39,14 +44,18 @@ function App() {
           <Route path='login' element={<LoginPage />} />
           <Route path='signup' element={<SignupPage />} />
           <Route path='forgot-password' element={<ForgotPassword />} />
-          <Route path='reset-password' element={<ResetPassword />} />
+          <Route path='reset-password/:token' element={<ResetPassword />} />
           <Route path='blog-details/:id' element={<SingleBlog />} />
           <Route path='product/:id' element={<SingleProduct />} />
           <Route path='privacy-policy' element={<PrivacyPolicy />} />
           <Route path='refund-policy' element={<RefundPolicy />} />
           <Route path='shipping-policy' element={<ShippingPolicy />} />
           <Route path='terms-conditions' element={<TermAndConditions />} />
-
+          <Route path='checkout' element={<Checkout />} />
+          <Route path='checkout-success' element={<CheckoutSuccess />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='*' element={<NotFound />} />
+          <Route path='order/:id' element={<Orders />} />
         </Route>
       </Routes>
     </BrowserRouter>

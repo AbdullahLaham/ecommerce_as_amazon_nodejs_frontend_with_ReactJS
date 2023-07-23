@@ -5,24 +5,40 @@ import ReactStars from "react-rating-stars-component";
 import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import ProductCard from '../components/ProductCard'
 import Colors from '../components/Colors';
+import { getProducts } from '../features/product/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getWishlist } from '../features/auth/authSlice';
 const Store = () => {
 
-  
-  const [filter, setFilter] = React.useState('');
+  const dispatch = useDispatch();
+
+  const [filter, setFilter] = React.useState('') ;
   const [grid, setGrid] = useState(4);
   const handleChange = (event) => {
       setFilter(event.target.value);
   };
 
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+
+
+
+  const {products, wishlist, addedToWishlist}  = useSelector((state) => state?.products);
+
+  useEffect(() => {
+      dispatch(getWishlist())
+    }, [wishlist, addedToWishlist])
+  console.log(products, 'trtr')
 
   return (
-    <div className='bg-[#e6e6e6] text-gray-600 px-11 h-[]'>
+    <div className=' text-gray-600 px-11'>
       <Meta title='Our Store' />      
       <BreadCrumb title='Our Store' />
       <div className='store-wrapper py-5 h-[100%] '>
         <div className='w-[100%] flex  gap-2 h-[100%] '>
           {/* Right section */}
-          <div className='w-[20%] '>
+          <div className='max-w-[20%] min-w-[20%] hidden lg:block '>
             <div className='mb-3 bg-white py-2 px-3 rounded-lg'>
               <h3 className='filter-title text-[16px] leading-[20px] font-bold  text-gray-800'>Shop By Categories</h3>
               <div>
@@ -125,7 +141,7 @@ const Store = () => {
           </div>
 
           {/* left section */}
-          <div className='flex-1 px-[10px]  rounded-[10px] '>
+          <div className='flex-1 px-[5px]  rounded-[10px] '>
             <div className='flex items-center justify-between rounded-[10px] bg-white px-2 mb-2'>
               <div className='flex items-center '>
                 <p className='mb-0 font-bold text-lg w-[80px]'>Sort By:</p>
@@ -182,12 +198,12 @@ const Store = () => {
                 </div>
               </div>
             </div>
-            <div className='flex items-center justify-between flex-wrap '>
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
-              <ProductCard grid={grid} />
+            <div className='flex items-center justify gap-2 flex-wrap '>
+              {products?.map((product) => {
+                return (
+                  <ProductCard grid={grid} product={product} />
+                )
+              })}
             </div>
           </div>
         </div>
