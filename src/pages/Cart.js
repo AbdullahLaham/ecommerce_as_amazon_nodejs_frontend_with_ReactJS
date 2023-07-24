@@ -14,14 +14,12 @@ const Cart = () => {
   const {user, currentCart} = useSelector((state) => state.auth) ; 
   const [totalAmount, setTotalAmount] = useState(0);
 
-  let total = 0;
 
   useEffect(() => {
     for (let i = 0; i < currentCart?.length; i++) {
-      total += currentCart[i]['price'] * currentCart[i]['quantity'];
       
+      setTotalAmount(totalAmount + currentCart[i]['price'] * currentCart[i]['quantity'])
     }
-    setTotalAmount(total)
   }, [])
   const updateQuantity = (data) => {
     dispatch(updateCartProductQuantity(data))

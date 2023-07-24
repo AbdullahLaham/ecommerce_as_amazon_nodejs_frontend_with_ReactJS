@@ -11,20 +11,57 @@ import { getWishlist } from '../features/auth/authSlice';
 const Store = () => {
 
   const dispatch = useDispatch();
+ const {products, wishlist, addedToWishlist}  = useSelector((state) => state?.products);
 
-  const [filter, setFilter] = React.useState('') ;
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [colors, setColors] = useState([]);
+
+
+
+  const [brand, setBrand] = useState('');
+  const [category, setCategory] = useState('');
+  const [tag, setTag] = useState('');
+  const [color, setColor] = useState('');
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
+  const [sort, setSort] = useState('');
+
   const [grid, setGrid] = useState(4);
   const handleChange = (event) => {
-      setFilter(event.target.value);
+      setSort(event.target.value);
   };
+
+  useEffect(() => {
+
+    products.map((product) => {
+      setBrands((data) => [...data, product?.brand]);
+      setCategories((data) => [...data, product?.category]);
+      setColors((data) => [...data, product?.color && product?.color[0]]);
+      setTags((data) => [...data, product?.tags])
+    })
+
+  }, []);
 
   useEffect(() => {
     dispatch(getProducts());
   }, []);
 
+  useEffect(() => {
+    // console.log(sort)
+    // console.log(color)
+    // console.log(tag)
+    // console.log(brand)
+    // console.log(category)
+    // console.log(minPrice)
+    // console.log(maxPrice)
+    dispatch(getProducts({sort, color, tag, brand, category, minPrice, maxPrice}))
+  }, [sort, color, tag, brand, category, minPrice, maxPrice]);
 
 
-  const {products, wishlist, addedToWishlist}  = useSelector((state) => state?.products);
+
+ 
 
   useEffect(() => {
       dispatch(getWishlist())
@@ -43,70 +80,78 @@ const Store = () => {
               <h3 className='filter-title text-[16px] leading-[20px] font-bold  text-gray-800'>Shop By Categories</h3>
               <div>
                 <ul className='mt-3 flex flex-col text-[1rem] leading-7'>
-                  <li className='text-gray-600 cursor-pointer font-semibold '>Watch</li>
-                  <li className='text-gray-600 cursor-pointer font-semibold '>TV</li>
-                  <li className='text-gray-600 cursor-pointer font-semibold '>Camera</li>
-                  <li className='text-gray-600 cursor-pointer font-semibold '>Laptop</li>
+                  
+                  {[...new Set(categories)].map((category) => {
+                    return (
+                      <li onClick={() => setCategory(category)} className='text-gray-600 cursor-pointer font-semibold '>{category}</li>
+                    )
+                  })}
                 </ul>
               </div> 
             </div>
+
+
+            <div className='mb-3 bg-white py-2 px-3 rounded-lg'>
+              <h3 className='filter-title text-[16px] leading-[20px] font-bold  text-gray-800'>Shop By Brands</h3>
+              <div>
+                <ul className='mt-3 flex flex-col text-[1rem] leading-7'>
+                  
+                  {[...new Set(brands)].map((brand) => {
+                    return (
+                      <li onClick={() => setBrand(brand)} className='text-gray-600 cursor-pointer font-semibold '>{brand}</li>
+                    )
+                  })}
+                </ul>
+              </div> 
+            </div>
+
             <div className='mb-3 bg-white py-2 px-3 flex flex-col'>
               <h3 className='filter-title leading-[20px] font-bold text-[1.1rem] mb-3  text-gray-800'>Filter By</h3>
               <div>
-                <h5 className='font-[600] text-[1.1rem] text-gray-800'>Availability</h5>
+                {/* <h5 className='font-[600] text-[1.1rem] text-gray-800'>Availability</h5>
                 <div>
                   <input type='checkbox' id='input1' className='form-check-input' /> <label className='font-semibold text-[.9rem] ' for='input1' >In Stock</label>
                 </div>
                 <div>
                   <input type='checkbox' id='input2' className='form-check-input' /> <label className='font-semibold text-[.9rem] ' for='input2' >Out Of Stock</label>
-                </div>
+                </div> */}
 
                 <h5 className='font-[600] text-[1.1rrem] text-gray-800'>Price</h5>
                 <div className='flex items-center justify-start '>
-                  <input type='text' className='p-2 w-[25%] ml-0 bg-gray-200 mx-2 rounded-md border-inherit outline-none' placeholder='From'  />
-                  <input type='text' className='p-2 w-[25%]  bg-gray-200 mx-2 rounded-md border-inherit outline-none' placeholder='To'  />
+                  <input onChange={(e) => setMinPrice(e.target.value)} name={'minPrice'} type='text' className='p-2 w-[25%] ml-0 bg-gray-200 mx-2 rounded-md border-inherit outline-none' placeholder='From'  />
+                  <input  onChange={(e) => setMaxPrice(e.target.value)} name={'maxPrice'} type='text' className='p-2 w-[25%]  bg-gray-200 mx-2 rounded-md border-inherit outline-none' placeholder='To'  />
                 </div>
 
-                <h5 className='font-[600] text-[1.1rrem] text-gray-800'>Colors</h5>
-                <Colors />
+                <h5 className='font-[600] text-[1.1rrem] text-gray-800 '>Colors</h5>
+                <div className='flex items-center justify-start  flex-wrap'>
+                  {[...new Set(colors)].map((item) => {
+                    return (
+                      <Colors color={item} setColor={setColor} />
+                    )
+                  })}
+                </div>
               </div>
               
-              <h5 className='font-[600] text-[1.1rrem] text-gray-800'>Size</h5>
+              {/* <h5 className='font-[600] text-[1.1rrem] text-gray-800'>Size</h5>
                 <div>
                   <input type='checkbox' id='check1' className='form-check-input' /> <label className='font-semibold text-[.9rem] ' for='check1' >S (2)</label>
                 </div>
                 <div>
                   <input type='checkbox' id='check2' className='form-check-input' /> <label className='font-semibold text-[.9rem] ' for='check2' >M (2)</label>
-                </div>
+                </div> */}
             </div>
 
             <div className='mb-3 bg-white py-2 px-3 '>
               <h3 className='filter-title text-[16px] leading-[20px] font-semibold '>Product Tags</h3>
               <div className='flex flex-wrap items-center gap-1 mt-3'>
-                <div className='py-1 px-3 rounded-[.3rem] bg-slate-300 text-gray-600 font-semibold cursor-pointer'>
-                  Headphone
-                </div>
-                <div className='py-1 px-3 rounded-[.3rem] bg-slate-300 text-gray-600 font-semibold cursor-pointer'>
-                  Laptop
-                </div>
-                <div className='py-1 px-3 rounded-[.3rem] bg-slate-300 text-gray-600 font-semibold cursor-pointer'>
-                  Mobile
-                </div>
-                <div className='py-1 px-3 rounded-[.3rem] bg-slate-300 text-gray-600 font-semibold cursor-pointer'>
-                  oppo
-                </div>
-                <div className='py-1 px-3 rounded-[.3rem] bg-slate-300 text-gray-600 font-semibold cursor-pointer'>
-                  Seaker
-                </div>
-                <div className='py-1 px-3 rounded-[.3rem] bg-slate-300 text-gray-600 font-semibold '>
-                  Tablet
-                </div>
-                <div className='py-1 px-3 rounded-[.3rem] bg-slate-300 text-gray-600 font-semibold '>
-                  Vivo
-                </div>
-                <div className='py-1 px-3 rounded-[.3rem] bg-slate-300 text-gray-600 font-semibold '>
-                  Wire
-                </div>
+                
+                {[...new Set(tags)].map((item) => {
+                  return (
+                    <div onClick={() => setTag(item)} className='py-1 px-3 rounded-[.3rem] bg-slate-300 text-gray-600 font-semibold cursor-pointer'>
+                      {item}
+                    </div>
+                  )
+                })}
 
               </div>
             </div>
@@ -154,20 +199,20 @@ const Store = () => {
                     <Select
                         labelId="demo-select-small-label"
                         id="demo-select-small"
-                        value={filter}
+                        value={sort}
                         label="Age"
                         onChange={handleChange}
                     >
-                        <MenuItem value="manual">Featured</MenuItem>
+                        {/* <MenuItem value="manual">Featured</MenuItem>
                         <MenuItem value="best-selling">Best selling</MenuItem>
                         <MenuItem value="title-ascending">Alphabetically, A-Z</MenuItem>
                         <MenuItem value="title-descending">
                           Alphabetically, Z-A
-                        </MenuItem>
-                        <MenuItem value="price-ascending">Price, low to high</MenuItem>
-                        <MenuItem value="price-descending">Price, high to low</MenuItem>
-                        <MenuItem value="created-ascending">Date, old to new</MenuItem>
-                        <MenuItem value="created-descending">Date, new to old</MenuItem>
+                        </MenuItem> */}
+                        <MenuItem value="price">Price, low to high</MenuItem>
+                        <MenuItem value="-price">Price, high to low</MenuItem>
+                        <MenuItem value="createdAt">Date, old to new</MenuItem>
+                        <MenuItem value="-createdAt">Date, new to old</MenuItem>
                     </Select>
                 </FormControl>
 

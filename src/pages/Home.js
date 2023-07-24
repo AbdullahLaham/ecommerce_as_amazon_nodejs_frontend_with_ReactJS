@@ -243,10 +243,11 @@ const Home = () => {
         <section>
           <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Featured Collection</h3>
           <div className='flex flex-wrap items-center gap-8 mx-11'>
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            {products.map((product) => {
+              return (
+                <ProductCard product={product} />
+              )
+            })}
           </div>
         </section>
 

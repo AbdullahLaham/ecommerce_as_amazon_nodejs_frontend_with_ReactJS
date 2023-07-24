@@ -474,3 +474,8 @@ console.log(isSyntaxValid ? 'Syntax is valid' : 'Syntax is invalid');
 
 // // Print the result
 // console.log(isSyntaxValid ? 'Syntax is valid' : 'Syntax is invalid');
+
+
+
+
+

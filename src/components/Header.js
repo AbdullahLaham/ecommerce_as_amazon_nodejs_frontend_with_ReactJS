@@ -30,17 +30,15 @@ const Header = () => {
     const handleChange = (event) => {
         setCategory(event.target.value);
     };
-    let total = 0;
 
     const {user, currentCart} = useSelector((state) => state.auth) ;
 
 
     useEffect(() => {
         for (let i = 0; i < currentCart?.length; i++) {
-          total += currentCart[i]['price'] * currentCart[i]['quantity'];
-          
-        }
-        setTotalAmount(total)
+      
+            setTotalAmount(totalAmount + currentCart[i]['price'] * currentCart[i]['quantity'])
+          }
       }, []);
 
 

@@ -22,10 +22,11 @@ const SingleProduct = () => {
   // quantity
   const [counter, setCounter] = useState(1);
 
-  const props = {width: 500, height: 450, zoomWidth: 500, img: currentProduct?.images && currentProduct?.images[0]?.url || "/images/watch2.webp"};
+  const props = {width: 500, height: 450, zoomWidth: 500,  img: currentProduct?.images && currentProduct?.images[0]?.url || "/images/watch2.webp"};
   // console.log(currentProduct, 'trtr')
   const dispatch = useDispatch();
   const {id} = useParams();
+  console.log(currentProduct, 'rrrrrrrrr')
   useEffect(() => {
     dispatch(getAProduct(id));
   }, [id]);
@@ -55,20 +56,20 @@ const SingleProduct = () => {
   }
   
   const [review, setReview] = useState({
-    prodId: user?._id,
+    prodId: currentProduct?._id,
     rating: 0,
     comment: '',
   });
 
   const productRating = (e) => {
     e.preventDefault()
-    dispatch(rateProduct(review))
-
+    dispatch(rateProduct(review));
     setReview({
       prodId: currentProduct?._id,
       rating: 0,
       comment: '',
-    })
+    });
+    dispatch(getAProduct(id));
   }
 
   const changeRating = (newRating) => {
@@ -87,13 +88,13 @@ const SingleProduct = () => {
     })}
   return (
     <div className=' mx-11 '>
-        <Meta title={'Product Name'} />
-        <BreadCrumb title='Product Name' />
+        <Meta title={currentProduct?.title} />
+        <BreadCrumb title={currentProduct?.title} />
 
         {/* main product wrapper */}
         <section className='w-[100%] flex items-start'>
-            <div className='flex justify-center  gap-5 w-[100%]'>
-              <div className=' main-product-image max-w-[44%] p-[20px] bg-white rounded-[10px] '>
+            <div className='flex flex-col lg:flex-row justify-center  gap-5 w-[100%]'>
+              <div className=' main-product-image lg:w-[44%] w-[100%] p-[20px] bg-white rounded-[10px] '>
                 <div className='max-w-[100%]'>
                   <ReactImageZoom {...props} />
                   <div className='max-w-[100%] flex items-center mt-5 flex-wrap gap-15 '>
@@ -114,7 +115,7 @@ const SingleProduct = () => {
               </div>
 
               {/* product details */}
-              <div className='w-[45%]'>
+              <div className='lg:w-[45%] w-[100%] '>
                 <div className=' w-[100%] bg-white px-[1.5rem] py-[.5rem] '>
                   <h3 className='font-bold text-[1.2rem] text-gray-500 border-b border-gray-50 py-3 '>{currentProduct?.title}</h3>
                   <p className='border-b border-gray-200 py-2 text-gray-700 font-semibold' >$ {currentProduct?.price}</p>
@@ -270,7 +271,7 @@ const SingleProduct = () => {
                 <div className=''>
                   <h4 className='font-bold text-[1.5rem] text-gray-600'>Customer Reviews</h4>
                   <div className='flex gap-10 items-center '>
-                  <ReactStars count={5} value={4} edit={false} onChange={changeRating} size={24} activeColor="#ffd700"/>  
+                  <ReactStars count={5} value={4} edit={false} size={24} activeColor="#ffd700"/>  
                     <p className='text-gray-500 font-semibold'>Based on 2 Reviews</p>
                   </div>
                 </div>
@@ -304,7 +305,18 @@ const SingleProduct = () => {
                     <p> <ReactStars count={5} edit={false} value={3} size={24} activeColor="#ffd700" classNames='m-0 ' /></p>
                   </div>
                   <p className='text-[.9rem] text-gray-500 my-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus orci, ornare sit amet tortor ac, rutrum cursus turpis. Maecenas pharetra ex at consequat ornare. Sed hendrerit nec mi in aliquam. Aenean a finibus risus, nec pharetra ex. Sed vestibulum efficitur elementum. Vestibulum convallis lobortis enim ac eleifend. Vivamus ligula metus, porta eu velit vel, euismod vulputate orci. Donec imperdiet pulvinar fermentum. Praesent posuere ligula nisl, eu porttitor diam feugiat eu</p>
-                  </div>
+                </div>
+                {currentProduct?.ratings?.map((item) => {
+                  return (
+                    <div className='review border-t border-gray-300 pt-2'>
+                      <div className='flex items-center gap-2 my-2'>
+                        <p className='font-bold text-[1.2rem] texx-gray-500'>Abdullah</p>
+                        <p> <ReactStars count={5} edit={false} value={item?.star} size={24} activeColor="#ffd700" classNames='m-0 ' /></p>
+                      </div>
+                      <p className='text-[.9rem] text-gray-500 my-2'>{item?.comment}</p>
+                    </div>
+                  )
+                })}
 
               </div>
             </div>

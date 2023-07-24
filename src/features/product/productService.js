@@ -2,8 +2,8 @@ import axios from "axios";
 import API from '../MainApi'
 import Cookies from 'cookies-js'
 
-const getProducts = async () => {
-    const res = await API.get(`/product/`);
+const getProducts = async (data) => {
+    const res = await API.get(`/product?${data?.brand && `brand=${data?.brand}&&`}${data?.category && `category=${data?.category}&&`}${data?.sort && `sort=${data?.sort}&&`}`);
     console.log(res);
 
     if (res.data) {
