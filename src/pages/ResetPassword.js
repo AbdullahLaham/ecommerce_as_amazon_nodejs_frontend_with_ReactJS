@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Meta from '../components/Meta'
 import BreadCrumb from '../components/BreadCrumb'
 import { useNavigate, useParams } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -34,9 +35,13 @@ const ResetPassword = () => {
     validationSchema: passwordSchema,
   });
     
-
+  const {user, isLoading} = useSelector((state) => state?.auth)
   
-
+  if (isLoading) {
+    return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
+        <CircularProgress />
+    </div>
+}
 
   return (
     <div>

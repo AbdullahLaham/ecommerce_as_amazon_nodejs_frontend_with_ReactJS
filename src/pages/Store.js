@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
 import ReactStars from "react-rating-stars-component";
-import { MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import { MenuItem, Select, FormControl, InputLabel, CircularProgress } from '@mui/material';
 import ProductCard from '../components/ProductCard'
 import Colors from '../components/Colors';
 import { getProducts } from '../features/product/productSlice';
@@ -11,7 +11,7 @@ import { getWishlist } from '../features/auth/authSlice';
 const Store = () => {
 
   const dispatch = useDispatch();
- const {products, wishlist, addedToWishlist}  = useSelector((state) => state?.products);
+ const {products, wishlist, addedToWishlist, isLoading}  = useSelector((state) => state?.products);
 
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -68,6 +68,14 @@ const Store = () => {
     }, [wishlist, addedToWishlist])
   console.log(products, 'trtr')
 
+
+
+  if (isLoading) {
+    return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
+        <CircularProgress />
+    </div>
+}
+
   return (
     <div className=' text-gray-600 px-11'>
       <Meta title='Our Store' />      
@@ -80,7 +88,7 @@ const Store = () => {
               <h3 className='filter-title text-[16px] leading-[20px] font-bold  text-gray-800'>Shop By Categories</h3>
               <div>
                 <ul className='mt-3 flex flex-col text-[1rem] leading-7'>
-                  
+                <li onClick={() => setCategory('all')} className='text-gray-600 cursor-pointer font-semibold '>{'all'}</li>
                   {[...new Set(categories)].map((category) => {
                     return (
                       <li onClick={() => setCategory(category)} className='text-gray-600 cursor-pointer font-semibold '>{category}</li>
@@ -95,7 +103,7 @@ const Store = () => {
               <h3 className='filter-title text-[16px] leading-[20px] font-bold  text-gray-800'>Shop By Brands</h3>
               <div>
                 <ul className='mt-3 flex flex-col text-[1rem] leading-7'>
-                  
+                <li onClick={() => setBrand('all')} className='text-gray-600 cursor-pointer font-semibold '>{'all'}</li>
                   {[...new Set(brands)].map((brand) => {
                     return (
                       <li onClick={() => setBrand(brand)} className='text-gray-600 cursor-pointer font-semibold '>{brand}</li>

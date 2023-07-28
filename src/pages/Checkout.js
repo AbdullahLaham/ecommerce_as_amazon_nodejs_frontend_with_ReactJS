@@ -9,6 +9,8 @@ import {BsArrowLeftShort} from 'react-icons/bs'
 import { useEffect } from 'react';
 import { createOrder, getUserCart } from '../features/auth/authSlice';
 import { useState } from 'react';
+import { CircularProgress } from '@mui/material';
+
 import axios from 'axios';
 import API from '../features/MainApi';
 const Checkout = () => {
@@ -106,10 +108,15 @@ const Checkout = () => {
     setTotalAmount(total)
   }, [])
 
+  if (isLoading) {
+    return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
+        <CircularProgress />
+    </div>
+}
 
   return (
     <div className='flex lg:flex-row flex-col fle items-start justify-between  '>
-      <div className="row lg:w-[50%] w-[100%] m-[2rem] ">
+      <div className="row lg:w-[50%] w-[90%] lg:m-[2rem] m-[.8rem]  ">
         <h5 className='text-[1.6rem] font-semibold text-gray-600 '>Abdullah AL-Lahham</h5>
 
         <h4 className='text-[1.2rem] font-semibold text-gray-600 '>Contact Information</h4>

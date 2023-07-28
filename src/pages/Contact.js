@@ -10,13 +10,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup';
 import { postQuery, resetState } from '../features/contact/contactSlice'
 import { toast } from 'react-toastify'
+import { CircularProgress } from '@mui/material';
 
 const Contact = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {isSuccess, postedQuery} = useSelector((state) => state?.contact)
+  const {isSuccess, postedQuery, isLoading} = useSelector((state) => state?.contact)
   const handleSubmit = async (values) => { 
     // alert(JSON.stringify(formik?.values))
    dispatch(postQuery(formik.values));
@@ -49,7 +50,11 @@ const Contact = () => {
     validationSchema: userSchema,
   });
   
-
+  if (isLoading) {
+    return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
+        <CircularProgress />
+    </div>
+}
   return (
     <div className='bg-gray-200'>
         <Meta title={"Contact Us"} />

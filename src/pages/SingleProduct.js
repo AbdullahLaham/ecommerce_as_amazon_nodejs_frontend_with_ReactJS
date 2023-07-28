@@ -3,33 +3,47 @@ import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
 import ReactStars from "react-rating-stars-component";
 import ProductCard from '../components/ProductCard';
-import { Button, TextField } from '@mui/material';
+import { Button, CircularProgress, TextField } from '@mui/material';
 import ReactImageZoom from 'react-image-zoom';
 import Colors from '../components/Colors';
 import {IoIosGitCompare, IoMdHeartEmpty} from 'react-icons/io';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getAProduct, rateProduct } from '../features/product/productSlice';
+import { addToWishlist, getAProduct, rateProduct } from '../features/product/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../features/auth/authSlice';
+import { addToCart, getWishlist } from '../features/auth/authSlice';
+import { BsFillHeartFill, BsHeart } from 'react-icons/bs';
 
 const SingleProduct = () => {
   const [orderProduct, setOrderProduct] = useState(0);
-  const {currentProduct, products} = useSelector((state) => state?.products);
-
-  const {user} = useSelector((state) => state.auth) ; 
+  const {currentProduct, products, isLoading} = useSelector((state) => state?.products);
+  const [alreadyAdded, setAlreadyAdded] = useState(false);
+  const [selected, setSelected] = useState('1');
+  const [wselected, setWSelected] = useState('1');
+  const {user, currentCart, wishlist} = useSelector((state) => state.auth) ; 
   const [color, setColor] = useState(null);
   // quantity
   const [counter, setCounter] = useState(1);
 
-  const props = {width: 500, height: 450, zoomWidth: 500,  img: currentProduct?.images && currentProduct?.images[0]?.url || "/images/watch2.webp"};
+  const props = {width: 500, height: 450, zoomWidth: 500, objectFit: 'cover',  img: currentProduct?.images && currentProduct?.images[0]?.url || "/images/watch2.webp"};
   // console.log(currentProduct, 'trtr')
   const dispatch = useDispatch();
   const {id} = useParams();
-  console.log(currentProduct, 'rrrrrrrrr')
+  console.log(currentProduct, 'rrrrrrrrr');
+
+  
   useEffect(() => {
+    
     dispatch(getAProduct(id));
+
+    {currentCart?.map((cart) => {
+      if (cart?.productId?._id == currentProduct?._id) {
+        setAlreadyAdded(true);
+      }
+    })}
+
   }, [id]);
+
 
   const copyToClipboard = (text) => {
     // console.log("text", text);
@@ -69,23 +83,35 @@ const SingleProduct = () => {
       rating: 0,
       comment: '',
     });
-    dispatch(getAProduct(id));
   }
 
   const changeRating = (newRating) => {
     setReview({...review, rating: newRating});
   };
-  const [selected, setSelected] = useState('1');
+      
+  useEffect(() => {  
+      {wishlist?.map((item) => {
+        if (item?.slug == currentProduct?.slug) {
+          console.log(true, 'tttttttt')
+          setAlreadyAdded(true);
+        }
+      })}
+  
+    }, [currentProduct]);
 
 
-  const {currentCart} = useSelector((state) => state?.auth);
-  const [alreadyAdded, setAlreadyAdded] = useState(false);
+  const addProductToWishlist = async () => {
+    dispatch(addToWishlist(currentProduct?._id));
+    dispatch(getWishlist())
+}
+ 
 
-  {currentCart?.map((cart) => {
-      if (cart?.productId?._id == currentProduct?._id) {
-        setAlreadyAdded(true);
-      }
-    })}
+if (isLoading) {
+  return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
+      <CircularProgress />
+  </div>
+}
+
   return (
     <div className=' mx-11 '>
         <Meta title={currentProduct?.title} />
@@ -204,7 +230,7 @@ const SingleProduct = () => {
                           Add To Cart
                         </button>
                       ) : (
-                        <Link to='/cart' onClick={() => addProductToCart()}  className='font-semibold mt-3 px-3 py-1 text-white bg-[#353a41] hover:bg-[#212529] rounded-[1rem] cursor-pointer '>
+                        <Link to='/cart' className='font-semibold mt-3 px-3 py-1 text-white bg-[#353a41] hover:bg-[#212529] rounded-[1rem] cursor-pointer '>
                           Move To Cart
                         </Link>
                       )
@@ -213,17 +239,19 @@ const SingleProduct = () => {
                       Buy It Now
                     </button>
                   </div>
-                  <div className='flex items-center gap-3 mt-[1rem]'>
-                    <div className='px-2 py-1 border border-gray-100 flex items-center gap-2 text-gray-800 cursor-pointer rounded-md hover:bg-red-500 hover:text-white'>
-                      <IoIosGitCompare  className='text-[1rem]  font-semibold  '/>
-                      <p className='text-[1rem] font-semibold  '>Add To Wishlist</p>
+                  <div className='flex items-center gap-3 my-[1rem]'  >
+                    <div className={`${!alreadyAdded ? 'bg-red-500 text-white hover:text-red-500' : ''} px-2 py-1 border border-gray-100 flex items-center gap-2 text-gray-800 cursor-pointer rounded-md hover:bg-red-500  hover:text-white`} onClick={() => {addProductToWishlist(); setWSelected(true)}}>
+                    <button className='cursor-pointer  p-1 rounded-full hover:text-red-500 font-bold absolute top-2 right-[1rem]'>
+                        {wselected ? <BsFillHeartFill className='fill-red-500' onClick={() => setWSelected(false)} /> : alreadyAdded ?  <BsFillHeartFill className='fill-red-500' onClick={() => setWSelected(false)} /> : <BsHeart onClick={() => setWSelected(true)} className='font-bold' />}
+                    </button>
+                      <p className='text-[1rem] font-semibold  '>{!alreadyAdded ? 'Added To Wishlist' : 'Add To Wishlist'}</p>
 
                     </div>
-                    <div className='px-2 py-1 border border-gray-100 flex items-center gap-2 cursor-pointer rounded-md hover:bg-gray-100'>
-                      <IoMdHeartEmpty className='text-[1rem] text-gray-800 font-semibold  ' />
+                    {/* <div className='px-2 py-1 border border-gray-100 flex items-center gap-2 cursor-pointer rounded-md hover:bg-gray-100'>
+                      <IoIosGitCompare  className='text-[1rem]  font-semibold  '/>
                       <p className='text-[1rem]  text-gray-800 font-semibold' >Add To Compare</p>
                       
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className="flex gap-1 flex-col my-2">

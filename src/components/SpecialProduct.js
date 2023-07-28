@@ -15,7 +15,7 @@ const SpecialProduct = ({ product }) => {
 
 
   return (
-    <div className='flex items-center justify-start bg-white p-3 w-[100%] lg:w-auto'>
+    <div className='flex items-center justify-start bg-white p-3 min-w-[25rem] mx-[1rem] lg:w-auto'>
         {/* images section */}
         <div>
             <img src={product?.images[0]?.url || 'images/watch.jpg'} className='' alt='product image' />

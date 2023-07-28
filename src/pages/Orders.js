@@ -13,7 +13,7 @@ const Orders = () => {
 
     const dispatch = useDispatch();
 
-    const {currentOrder} = useSelector((state) => state?.auth);
+    const {currentOrder, isLoading} = useSelector((state) => state?.auth);
 
     useEffect(() => {
         dispatch(getAnOrder(id))
@@ -30,7 +30,13 @@ const Orders = () => {
         setTotalAmount(total)
     }, [])
     
-     console.log(currentOrder, 'rrrrrrrrr')
+     console.log(currentOrder, 'rrrrrrrrr');
+
+     if (isLoading) {
+        return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
+            <CircularProgress />
+        </div>
+    }
   return (
       <div>
       {/* {loading ? (<CircularProgress />) : error ? (<Alert varient="danger" />) : 

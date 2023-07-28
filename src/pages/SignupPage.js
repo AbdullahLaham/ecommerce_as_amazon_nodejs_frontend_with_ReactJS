@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { CircularProgress } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../features/auth/authSlice';
 const SignupPage = () => {
@@ -57,7 +58,11 @@ const SignupPage = () => {
     }
   }, [user, isLoading, isError, isSuccess, message]);
 
-
+  if (isLoading) {
+    return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
+        <CircularProgress />
+    </div>
+}
 
 
 return (

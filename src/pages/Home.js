@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom';
 import Marquee from 'react-fast-marquee';
 import BlogCard from '../components/BlogCard';
@@ -7,22 +7,65 @@ import SpecialProduct from '../components/SpecialProduct';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../features/product/productSlice';
 import { toast } from 'react-toastify';
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
+import {motion} from 'framer-motion'
+import ProductComp from '../components/ProductComp';
 
 const Home = () => {
-
+  const carousel = useRef();
   const dispatch = useDispatch();
+
+  const [width, setWidth] = useState(0);
+  const element = useRef();
+  const [windowSize, setWindowSize] = useState([
+    window.innerWidth,
+    window.innerHeight,
+  ]);
+const [result, setResult] = useState(false);
+
+
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowSize([window.innerWidth, window.innerHeight]);
+    };
+
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  });
+  
+useEffect(() => {
+    console.log(windowSize);
+    setResult(window.matchMedia("(max-width: 800px)"));
+}, [windowSize]);
+
+
+
+  useEffect(() => {
+    setWidth(result.matches && (7 * element.current.clientWidth));
+  }, []);
+
+
   useEffect(() => {
     dispatch(getProducts());
   }, []);
 
 
-  const {products} = useSelector((state) => state?.products);
+  
+
+  const {isLoading, products} = useSelector((state) => state?.products);
 
   console.log(products, 'tttttttttt');
 
 
-
+  if (isLoading) {
+    return <div className='w-[100%] h-[60vh] flex items-center justify-center'>
+      <CircularProgress />
+    </div>
+  }
 
   return (
     <div className='bg-[#f0f0f0]'>
@@ -243,11 +286,19 @@ const Home = () => {
         <section>
           <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Featured Collection</h3>
           <div className='flex flex-wrap items-center gap-8 mx-11'>
-            {products.map((product) => {
-              return (
-                <ProductCard product={product} />
-              )
-            })}
+            <motion.div className='carousel cursor-grab overflow-hidden ' ref={carousel} >
+                  <motion.div drag='x' dragConstraints={{left: 0, right: width*3}} className='flex bg-lightblue'>
+                    
+                    {products?.map((product) => {
+                        // if (product?.tags === 'Featured') {
+                          return (<motion.div  ref={element} >
+                            <SpecialProduct product={product} />
+                        </motion.div>)
+                          
+                        
+                      })}
+                  </motion.div>
+              </motion.div>
           </div>
         </section>
 
@@ -296,12 +347,20 @@ const Home = () => {
           <div className='px-11'>
             
             <div className='flex lg:flex-row flex-col  items-center justify-start gap-[1rem]'>
-              {products?.map((product) => {
-                if (product?.tags === 'Special') {
-                  return <SpecialProduct product={product} />
-                }
-              })}
               
+              <motion.div className='carousel cursor-grab overflow-hidden ' ref={carousel} >
+                <motion.div drag='x' dragConstraints={{left: 0, right: width}} className='flex bg-lightblue'>
+                  
+                  {products?.map((product) => {
+                      if (product?.tags === 'Special') {
+                        return (<motion.div  ref={element} >
+                          <SpecialProduct product={product} />
+                      </motion.div>)
+                        
+                      }
+                    })}
+                </motion.div>
+            </motion.div>
             </div>
           </div>
         </section>
@@ -353,8 +412,10 @@ const Home = () => {
           </div>
 
         </section>
+
         
-        {/* Blog Wrapper */}
+
+
         <section>
           <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Our Latest Blogs</h3>
           <div className='flex flex-wrap items-center gap-8 mx-11'>

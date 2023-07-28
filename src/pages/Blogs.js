@@ -5,14 +5,21 @@ import Meta from '../components/Meta';
 import BlogCard from '../components/BlogCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBlogs } from '../features/blog/blogSlice';
+import { CircularProgress } from '@mui/material';
 
 const Blogs = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getBlogs());
     }, []);
-    const {blogs} = useSelector((state) => state?.blog);
+    const {blogs, isLoading} = useSelector((state) => state?.blog);
     console.log(blogs, 'tttttttt')
+
+    if (isLoading) {
+        return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
+            <CircularProgress />
+        </div>
+    }
   return (
     <>
         <Meta title={'Blogs'} />

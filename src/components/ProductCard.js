@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import ReactStars from "react-rating-stars-component";
 
-import {BsHeart, BsShare, BsEye, BsHandbag} from 'react-icons/bs';
+import {BsHeart, BsShare, BsEye, BsHandbag, BsFillHeartFill} from 'react-icons/bs';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToWishlist } from '../features/product/productSlice';
+import { addToWishlist, getAProduct } from '../features/product/productSlice';
 import { getWishlist } from '../features/auth/authSlice';
 const ProductCard = ({grid, product}) => {
     
     const [rating, setRating] = useState(0);
+    const [alreadyAdded, setAlreadyAdded] = useState(false);
+    const {user, currentCart, wishlist} = useSelector((state) => state.auth) ; 
+    const [selected, setSelected] = useState(false);
+    useEffect(() => {
     
+        dispatch(getAProduct(product?._id));
+    
+        {wishlist?.map((item) => {
+          if (item?._id == product?._id) {
+            setAlreadyAdded(true);
+          }
+        })}
+    
+      }, [product]);
 
+      
     const dispatch = useDispatch();
 
     const changeRating = (newRating) => {
@@ -26,7 +40,7 @@ const ProductCard = ({grid, product}) => {
   return (
     <div className={`product-card bg-white ${grid == 3 ? 'flex': ""} mb-2 min-w-[15rem] items-center rounded-md relative product-card gr-${grid} px-2 py-2`}>
         <button onClick={() => addProductToWishlist()} className='cursor-pointer  p-1 rounded-full hover:text-red-500 font-bold absolute top-2 right-[1rem]'>
-            <BsHeart className='font-bold' />
+            {selected ? <BsFillHeartFill className='fill-red-500' onClick={() => setSelected(false)} /> : alreadyAdded ?  <BsFillHeartFill className='fill-red-500' onClick={() => setSelected(false)} /> : <BsHeart onClick={() => setSelected(true)} className='font-bold' />}
         </button>
 
         <Link to={`/product/${product?._id}`}>

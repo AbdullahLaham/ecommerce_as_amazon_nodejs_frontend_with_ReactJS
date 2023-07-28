@@ -3,15 +3,16 @@ import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { forgotPassword } from '../features/auth/authSlice';
+import { CircularProgress } from '@mui/material';
 
 const ForgotPassword = () => {
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const {isLoading} = useSelector((state) => state?.auth)
   const handleSubmit = async (values) => { 
     // alert(JSON.stringify(formik?.values))
     dispatch(forgotPassword(formik.values));
@@ -31,6 +32,11 @@ const ForgotPassword = () => {
   });
   
 
+  if (isLoading) {
+    return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
+        <CircularProgress />
+    </div>
+}
 
   return (
     <>

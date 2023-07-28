@@ -4,23 +4,29 @@ import Meta from '../components/Meta'
 import { getWishlist, resetState } from '../features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToWishlist, deleteFromWishlist } from '../features/product/productSlice';
+import { CircularProgress } from '@mui/material';
 
 const Wishlist = () => {
     const dispatch = useDispatch();
-    const {products, wishlist, addedToWishlist}  = useSelector((state) => state?.auth);
+    const {products, wishlist, addedToWishlist, deletedFromWishlist, isLoading}  = useSelector((state) => state?.auth);
 
     const deleteFromWishlist = async (prodId) => {
-        dispatch(deleteFromWishlist(prodId));
-        dispatch(resetState());
+        dispatch(addToWishlist(prodId));
+        // dispatch(resetState());
         dispatch(getWishlist());
+        
     }
 
 
     useEffect(() => {
         dispatch(getWishlist());
-    }, [addedToWishlist]);
+    }, [addedToWishlist, deletedFromWishlist]);
 
-
+    if (isLoading) {
+        return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
+            <CircularProgress />
+        </div>
+    }
   return (
     <div>
         <Meta title='Wishlist' />
@@ -30,18 +36,18 @@ const Wishlist = () => {
         
             {wishlist?.map((item) => {
                 return (
-                    <div className='relative w-[14rem] min-h-[18rem]  rounded-md p-2 bg-white'>
+                    <div className='relative w-[14rem] min-h-[18rem]  rounded-md p-2 bg-white mb-[1.5rem] '>
                         <img src='images/cross.svg' alt='cross' onClick={() => deleteFromWishlist(item?._id)} className='w-[1rem] h-[1rem] cursor-pointer absolute top-5 right-5 ' />
                         <div className=' bg-white mt-[2rem]'>
-                            <img src={item?.images[0]?.url || 'images/watch.jpg'} className='w-[15rem] h-[12rem] object-cover m-auto' />
+                            <img src={item?.images[0]?.url || 'images/watch.jpg'} className='w-[12rem] h-[10rem] object-cover m-auto ' />
                         </div>
                         <div className='px-2'>
                             <h5 className='title text-[.9rem] leading-[22px] font-semibold my-2 '>
                                 {item?.title}
                             </h5>
-                            <h5 className='title text-[.9rem] leading-[22px] font my-2 '>
+                            {/* <h5 className='title text-[.9rem] leading-[22px] font my-2 '>
                                 {item?.description.slice(3,item?.description.length - 4)}
-                            </h5>
+                            </h5> */}
                             <p className='font-bold text-[1rem] text-gray-800 my-3'>{item?.price} $ </p>
                         </div>
                     </div>
@@ -50,7 +56,7 @@ const Wishlist = () => {
 
         </div>
         ) : (
-            <div className='w-[100%] h-[100%] flex items-center justify-center'>
+            <div className='w-[100%] h-[40vh] flex items-center justify-center'>
                 <p className='text-[1.2rem]'>No Items In The Wishlist</p>
             </div>
         )}

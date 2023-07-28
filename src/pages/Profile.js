@@ -3,6 +3,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup' ;
+import { CircularProgress } from '@mui/material';
 import { resetState, updateUser } from '../features/auth/authSlice';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
@@ -50,7 +51,11 @@ const Profile = () => {
   //     navigate('/')
   //   }
   // }, [user, isLoading, isError, isSuccess, message]);
-
+  if (isLoading) {
+    return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
+        <CircularProgress />
+    </div>
+}
   return (
     <Box sx={{padding: '2rem',}}>
         <form onSubmit={formik.handleSubmit}>

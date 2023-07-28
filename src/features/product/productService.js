@@ -3,7 +3,21 @@ import API from '../MainApi'
 import Cookies from 'cookies-js'
 
 const getProducts = async (data) => {
-    const res = await API.get(`/product?${data?.brand && `brand=${data?.brand}&&`}${data?.category && `category=${data?.category}&&`}${data?.sort && `sort=${data?.sort}&&`}`);
+    let res;
+    let query = `/product?`;
+   
+    if (data?.brand && data?.brand !== 'all') {
+        query += `brand=${data?.brand}&&`
+    }
+    if (data?.category && data?.category !== 'all') {
+        query += `category=${data?.category}&&`
+    }
+    if (data?.sort && data?.sort !== 'all') {
+        query += `sort=${data?.sort}&&`
+    }
+    
+    res = await API.get(query);
+
     console.log(res);
 
     if (res.data) {

@@ -6,6 +6,7 @@ import { login } from '../features/auth/authSlice'
 import { useFormik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import * as yup from 'yup';
+import { CircularProgress } from '@mui/material'
 
 
 const LoginPage = () => {
@@ -43,7 +44,9 @@ const LoginPage = () => {
   }, [user, isLoading, isError, isSuccess, message]);
 
 
-
+  if (isLoading) {
+    return 
+  }
 
   return (
     <div className=''>
@@ -67,9 +70,11 @@ const LoginPage = () => {
               </div>
               <Link to='/forgot-password' className='text-[.85rem] font-semibold -mt-2'>Forgot Your Password</Link>
               <div className='flex items-center justify-center w-full gap-3'>
-                <button to='' className='font-semibold mt-3 px-3 py-1 text-white bg-[#353a41] hover:bg-[#212529] rounded-[1rem] cursor-pointer '>
+                {!isLoading ? <button type='submit' to='' className='font-semibold mt-3 px-3 py-1 text-white bg-[#353a41] hover:bg-[#212529] rounded-[1rem] cursor-pointer '>
                   Login
-                </button>
+                </button> : <div className='h-[1rem] flex items-center justify-center'>
+                    <CircularProgress />
+                  </div>}
                 <Link to='/signup' className='font-semibold mt-3 px-3 py-1 bg-[#fda839] hover:bg-[#353a41] hover:text-[#ffc57a] text-[#353a41] rounded-[1rem] cursor-pointer '>
                   Sign Up
                 </Link>
