@@ -13,9 +13,7 @@ const ProductCard = ({grid, product}) => {
     const {user, currentCart, wishlist} = useSelector((state) => state.auth) ; 
     const [selected, setSelected] = useState(false);
     useEffect(() => {
-    
-        dispatch(getAProduct(product?._id));
-    
+        
         {wishlist?.map((item) => {
           if (item?._id == product?._id) {
             setAlreadyAdded(true);
@@ -34,7 +32,7 @@ const ProductCard = ({grid, product}) => {
       
     const addProductToWishlist = async () => {
         dispatch(addToWishlist(product?._id));
-        dispatch(getWishlist())
+        // dispatch(getWishlist())
     }
     
   return (

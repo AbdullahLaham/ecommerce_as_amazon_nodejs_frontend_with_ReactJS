@@ -55,6 +55,12 @@ const Contact = () => {
         <CircularProgress />
     </div>
 }
+
+setTimeout(() => {
+  return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
+        <CircularProgress />
+    </div>
+}, 3000)
   return (
     <div className='bg-gray-200'>
         <Meta title={"Contact Us"} />

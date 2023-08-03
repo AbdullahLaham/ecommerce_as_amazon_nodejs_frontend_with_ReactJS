@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 
 const initialState = { 
     user: localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth')): null,
+    userData: {},
     orders: [],
     wishlist: [],
     deletedCartItem: {},
@@ -20,13 +21,24 @@ const initialState = {
     createdOrder: {},
     currentOrder: {},
     currentCart: [] ,
+    userChats: [],
     isError: false,
     isLoading: false,
     isSuccess: false,
     message: '',
  }
 
+ export const fetchUserData = createAsyncThunk('auth/user-data', async (id, thunkAPI) => {
+    try {
+        console.log('hello')
 
+        return await authService.fetchUserData(id);
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+
+ })
 
 export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
     try {
@@ -231,6 +243,23 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 
  });
 
+
+
+
+ export const userChats = createAsyncThunk('auth/user-chats', async (id, thunkAPI) => {
+    
+    try {
+
+        return await authService.userChats(id);
+        
+    } catch (error) {
+
+        return thunkAPI.rejectWithValue(error);
+        
+    }
+
+ });
+
  export const resetState = createAction('Reset-all');
 
 
@@ -242,6 +271,35 @@ const authSlice = createSlice({
   },
   extraReducers: (builder ) => {
      builder
+
+
+
+
+     .addCase(fetchUserData.pending,(state) => {state.isLoading = true }  )
+
+    .addCase(fetchUserData.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false;
+        state.isSuccess = true;
+        state.userData = action?.payload;
+        // if (state?.isSuccess) {
+        //     toast.success("Verification Done Successfully")
+        // }
+    })
+
+    .addCase(fetchUserData.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        state.userData = null;
+        if (state?.isError) {
+            toast.error("Something Went Error")
+        }
+    })
+
+
+
+
      .addCase(login.pending,(state) => {state.isLoading = true }  )
 
     .addCase(login.fulfilled,(state, action) => {
@@ -596,6 +654,36 @@ const authSlice = createSlice({
             toast.error('Something went error')
         }
     })
+
+
+
+
+
+    .addCase(userChats.pending,(state) => {state.isLoading = true }  )
+    
+     
+    .addCase(userChats.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false ;
+        state.isSuccess = true;
+        state.userChats = action?.payload;
+        // if (state?.isSuccess) {
+        //     toast.success('User Updated successfully')
+        // }
+    })
+
+    .addCase(userChats.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        state.userChats = null;
+        state.message = action.error;
+        if (state?.isError) {
+            toast.error('Something went error')
+        }
+    })
+
+
 
 
 

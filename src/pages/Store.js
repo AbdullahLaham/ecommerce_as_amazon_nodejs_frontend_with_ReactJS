@@ -35,7 +35,7 @@ const Store = () => {
 
   useEffect(() => {
 
-    products.map((product) => {
+    products?.map((product) => {
       setBrands((data) => [...data, product?.brand]);
       setCategories((data) => [...data, product?.category]);
       setColors((data) => [...data, product?.color && product?.color[0]]);
@@ -65,7 +65,7 @@ const Store = () => {
 
   useEffect(() => {
       dispatch(getWishlist())
-    }, [wishlist, addedToWishlist])
+    }, [, addedToWishlist])
   console.log(products, 'trtr')
 
 
@@ -89,7 +89,7 @@ const Store = () => {
               <div>
                 <ul className='mt-3 flex flex-col text-[1rem] leading-7'>
                 <li onClick={() => setCategory('all')} className='text-gray-600 cursor-pointer font-semibold '>{'all'}</li>
-                  {[...new Set(categories)].map((category) => {
+                  {[...new Set(categories)]?.map((category) => {
                     return (
                       <li onClick={() => setCategory(category)} className='text-gray-600 cursor-pointer font-semibold '>{category}</li>
                     )
@@ -104,7 +104,7 @@ const Store = () => {
               <div>
                 <ul className='mt-3 flex flex-col text-[1rem] leading-7'>
                 <li onClick={() => setBrand('all')} className='text-gray-600 cursor-pointer font-semibold '>{'all'}</li>
-                  {[...new Set(brands)].map((brand) => {
+                  {[...new Set(brands)]?.map((brand) => {
                     return (
                       <li onClick={() => setBrand(brand)} className='text-gray-600 cursor-pointer font-semibold '>{brand}</li>
                     )
@@ -132,7 +132,7 @@ const Store = () => {
 
                 <h5 className='font-[600] text-[1.1rrem] text-gray-800 '>Colors</h5>
                 <div className='flex items-center justify-start  flex-wrap'>
-                  {[...new Set(colors)].map((item) => {
+                  {[...new Set(colors)]?.map((item) => {
                     return (
                       <Colors color={item} setColor={setColor} />
                     )
@@ -153,7 +153,7 @@ const Store = () => {
               <h3 className='filter-title text-[16px] leading-[20px] font-semibold '>Product Tags</h3>
               <div className='flex flex-wrap items-center gap-1 mt-3'>
                 
-                {[...new Set(tags)].map((item) => {
+                {[...new Set(tags)]?.map((item) => {
                   return (
                     <div onClick={() => setTag(item)} className='py-1 px-3 rounded-[.3rem] bg-slate-300 text-gray-600 font-semibold cursor-pointer'>
                       {item}

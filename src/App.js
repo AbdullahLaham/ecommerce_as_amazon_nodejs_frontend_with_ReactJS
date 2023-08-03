@@ -27,6 +27,8 @@ import CheckoutSuccess from './features/CheckoutSuccess';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 import Orders from './pages/Orders';
+import ChatPage from './pages/ChatPage';
+import Chat from './pages/ChatPage/Chat';
 
 function App() {
   return (
@@ -56,6 +58,7 @@ function App() {
           <Route path='profile' element={<Profile />} />
           <Route path='*' element={<NotFound />} />
           <Route path='order/:id' element={<Orders />} />
+          <Route path='chat' element={<Chat />} />
         </Route>
       </Routes>
     </BrowserRouter>

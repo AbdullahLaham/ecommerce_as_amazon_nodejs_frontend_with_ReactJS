@@ -7,9 +7,21 @@ import SpecialProduct from '../components/SpecialProduct';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../features/product/productSlice';
 import { toast } from 'react-toastify';
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, useMediaQuery } from '@mui/material';
 import {motion} from 'framer-motion'
 import ProductComp from '../components/ProductComp';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import 'swiper/css/autoplay';
+
 
 const Home = () => {
   const carousel = useRef();
@@ -45,7 +57,7 @@ useEffect(() => {
 
 
   useEffect(() => {
-    setWidth(result.matches && (7 * element.current.clientWidth));
+    setWidth(result.matches && (7 * element?.current?.clientWidth));
   }, []);
 
 
@@ -60,7 +72,9 @@ useEffect(() => {
 
   console.log(products, 'tttttttttt');
 
+  const matches = useMediaQuery('(min-width:600px)');
 
+  console.log(matches, 'rr')
   if (isLoading) {
     return <div className='w-[100%] h-[60vh] flex items-center justify-center'>
       <CircularProgress />
@@ -74,22 +88,85 @@ useEffect(() => {
         <section className=''>
           <div className='flex flex-col lg:flex-row  gap-2 justify-center mx-[.5rem] my-2'>
             <div className='h-[100%] min-w-[100%] w-[100%]  lg:w-[50%] lg:min-w-[50%]  '>
-              <div className='relative w-[100%] '>
-                <img src='images/main-sec.jpg' className='rounded-md h-[25rem] w-[100%]'/>
-                <div className='absolute top-[10%] left-[5%] text-white text-2xl '>
-                  <h4 className='text-[#bf4800] text-[1.7rem] font-bold leading-5 my-[12px] uppercase tracking-[.3px]		'>SUPERCHARGED FOR PROS.</h4>
-                  <h5 className='leading-[64px] text-[52px] -tracking-[2px] font-bold transform-none' >
-                    iPad S13+ Pro.
-                  </h5>
-                  <p className='leading-[28px] text-[18px] font-bold transform-none'>From $999.00 or $41.62/mo</p>
-                  <Link className='text-[.9rem] px-6 bg-[#3a3a3a] hover:bg-[#292929] text-yellow-100 font-semibold rounded-[1rem] '>BUY NOW</Link>
+            <Swiper
+              // install Swiper modules
+                  modules={[Pagination, Autoplay]}
+                  spaceBetween={50}
+                  slidesPerView={1}
+                  autoplay={{
+                    delay: 1000,
+                    pauseOnMouseEnter: true,
+                    disableOnInteraction: false
+                  }}
+          
+                  // navigation
+                  pagination={{ clickable: true }}
+                  // scrollbar={{ draggable: true }}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  onSlideChange={() => console.log('slide change')}
+            >
 
+              <SwiperSlide>
+                <div className='relative w-[100%] '>
+                  <img src='images/catbanner-01.jpg' className='rounded-md lg:h-[25rem] w-[100%]'/>
+                  <div className='absolute top-[10%] left-[5%] text-white text-2xl '>
+                    <h4 className='text-[#bf4800] text-[1.7rem] font-bold  my-[12px] uppercase tracking-[.5px]		'>SUPERCHARGED FOR PROS.</h4>
+                    <h5 className='lg:leading-[60px]  lg:text-[2.5rem] text-[1.8rem] -tracking-[2px] font-bold transform-none' >
+                      iPad S13+ Pro.
+                    </h5>
+                    <p className=' text-[18px] font-bold transform-none'>From $999.00 or $41.62/mo</p>
+                    <Link className='text-[.9rem] px-6 bg-[#3a3a3a] hover:bg-[#292929] text-yellow-100 font-semibold rounded-[1rem] '>BUY NOW</Link>
+
+                  </div>
                 </div>
-              </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className='relative w-[100%] '>
+                  <img src='images/catbanner-02.jpg' className='rounded-md lg:h-[25rem] w-[100%]'/>
+                  <div className='absolute top-[10%] left-[5%] text-white text-2xl '>
+                    <h4 className='text-[#bf4800] text-[1.7rem] font-bold my-[12px] uppercase tracking-[.5px]		'>SUPERCHARGED FOR PROS.</h4>
+                    <h5 className='lg:leading-[60px]  lg:text-[2.5rem] text-[1.8rem] -tracking-[2px] font-bold transform-none' >
+                      iPad S13+ Pro.
+                    </h5>
+                    <p className=' text-[18px] font-bold transform-none'>From $999.00 or $41.62/mo</p>
+                    <Link className='text-[.9rem] px-6 bg-[#3a3a3a] hover:bg-[#292929] text-yellow-100 font-semibold rounded-[1rem] '>BUY NOW</Link>
+
+                  </div>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className='relative w-[100%] '>
+                  <img src='images/catbanner-03.jpg' className='rounded-md lg:h-[25rem] w-[100%]'/>
+                  <div className='absolute top-[10%] left-[5%] text-white text-2xl '>
+                    <h4 className='text-[#bf4800] text-[1.7rem] font-bold my-[12px] uppercase tracking-[.5px]		'>SUPERCHARGED FOR PROS.</h4>
+                    <h5 className='lg:leading-[60px]  lg:text-[2.5rem] text-[1.8rem] -tracking-[2px] font-bold transform-none' >
+                      iPad S13+ Pro.
+                    </h5>
+                    <p className='leading-[28px] text-[18px] font-bold transform-none'>From $999.00 or $41.62/mo</p>
+                    <Link className='text-[.9rem] px-6 bg-[#3a3a3a] hover:bg-[#292929] text-yellow-100 font-semibold rounded-[1rem] '>BUY NOW</Link>
+
+                  </div>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className='relative w-[100%] '>
+                  <img src='images/catbanner-04.jpg' className='rounded-md lg:h-[25rem] w-[100%]'/>
+                  <div className='absolute top-[10%] left-[5%] text-white text-2xl '>
+                    <h4 className='text-[#bf4800] text-[1.7rem] font-bold  my-[12px] uppercase tracking-[.5px]		'>SUPERCHARGED FOR PROS.</h4>
+                    <h5 className='lg:leading-[60px] lg:text-[2.5rem] text-[1.8rem] -tracking-[2px] font-bold transform-none' >
+                      iPad S13+ Pro.
+                    </h5>
+                    <p className='leading-[28px] text-[18px] font-bold transform-none'>From $999.00 or $41.62/mo</p>
+                    <Link className='text-[.9rem] px-6 bg-[#3a3a3a] hover:bg-[#292929] text-yellow-100 font-semibold rounded-[1rem] '>BUY NOW</Link>
+
+                  </div>
+                </div>
+              </SwiperSlide>
+              </Swiper>
 
             </div>
-            <div className=' lg:max-w-[45%] lg:w-[45%] w-[100%]  flex items-center justify-between h-[100%]'>
-            <div className='flex flex-col gap-[.2rem] justify-between gap-1rem w-[100%] lg:w-[50%] h-[100%] m-[.2rem]'>
+            <div className=' lg:max-w-[45%] lg:w-[45%] w-[100%] hidden lg:flex items-center justify-between h-[100%]'>
+            <div className='jflex flex-col gap-[.2rem] justify-between gap-1rem w-[100%] lg:w-[50%] h-[100%] m-[.2rem]'>
               <div className='relative w-[100%]  mx-[.1rem] mt-0 '>
                 <img src='images/catbanner-01.jpg' className='rounded-md w-[40rem]'/>
                 <div className='absolute top-[10%] left-[5%] text-black text-2xl '>
@@ -160,7 +237,7 @@ useEffect(() => {
 
         <section  className='px-11 w-[100%]'>
           <div className='flex flex-row justify-center py-[2rem]'>
-            <div className='flex lg:flex-row flex-col justify-between'>
+            <div className='flex lg:flex-row flex-col justify-between gap-[1.5rem] lg:gap-0'>
               <div className='w-[100%] flex items-center justify-start gap-[.5rem] lg:w-[14rem]'>
                 <img src='images/service.png' alt='Services' className='' />
                 <div className='flex flex-col items-start justify-start'>
@@ -183,7 +260,7 @@ useEffect(() => {
                 </div>
               </div>
             </div>
-            <div className='flex lg:flex-row flex-col justify-between'>
+            <div className='lg:flex hidden lg:flex-row flex-col justify-between'>
               <div className='w-[100%] flex items-center justify-start gap-[1rem] lg:w-[14rem]'>
                 <img src='images/service-04.png' alt='Services' className='' />
                 <div className='flex flex-col items-start justify-start'>
@@ -205,10 +282,10 @@ useEffect(() => {
         </section>
 
 
-        <section className='w-[100%] '>
-          <Box className='flex flex-wrap items-center gap-7 py-[2rem] mx-11 bg-white p-11'>
+        {/* <section className='w-[100%] '>
+          <Box className='flex flex-wrap md:flex-row lg:flex-row sm:flex-col items-center gap-7 py-[2rem] mx-11 bg-white p-11'>
 
-            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+            <div className='flex items-center gap-3 lg:w-[23%] w-[100%]  justify-between border-r border-slate-200 border-b'>
               <div>
                 <h6 className='font-bold text-xl'>Music & Gaming</h6>
                 <p>10 Items</p>
@@ -216,7 +293,7 @@ useEffect(() => {
               <img src='images/camera.jpg' alt='camera' />
             </div>
 
-            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+            <div className='flex items-center gap-3 lg:w-[23%] w-[100%]  justify-between border-r border-slate-200 border-b'>
               <div>
                 <h6 className='font-bold text-xl'>Smart Watches</h6>
                 <p>10 Items</p>
@@ -225,7 +302,7 @@ useEffect(() => {
             </div>
             
 
-            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+            <div className='flex items-center gap-3 lg:w-[23%] w-[100%]  justify-between border-r border-slate-200 border-b'>
               <div>
                 <h6 className='font-bold text-xl'>Smart TV</h6>
                 <p>10 Items</p>
@@ -233,7 +310,7 @@ useEffect(() => {
               <img src='images/tv.jpg' alt='camera' />
             </div>
 
-            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+            <div className='flex items-center gap-3 lg:w-[23%] w-[100%]  justify-between border-r border-slate-200 border-b'>
               <div>
                 <h6 className='font-bold text-xl'>Headphones</h6>
                 <p>10 Items</p>
@@ -245,7 +322,7 @@ useEffect(() => {
 
 
 
-            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+            <div className='flex items-center gap-3 lg:w-[23%] w-[100%]  justify-between border-r border-slate-200 border-b'>
               <div>
                 <h6 className='font-bold text-xl'>Home Appliances</h6>
                 <p>10 Items</p>
@@ -253,7 +330,7 @@ useEffect(() => {
               <img src='images/homeapp.jpg' className='w-[7rem]' alt='watch' />
             </div>
 
-            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+            <div className='flex items-center gap-3 lg:w-[23%] w-[100%]  justify-between border-r border-slate-200 border-b'>
               <div>
                 <h6 className='font-bold text-xl'>Portable Speaker</h6>
                 <p>10 Items</p>
@@ -261,7 +338,7 @@ useEffect(() => {
               <img src='images/tab1.jpg' className='w-[7rem]' alt='watch' />
             </div>
 
-            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+            <div className='flex items-center gap-3 lg:w-[23%] w-[100%]  justify-between border-r border-slate-200 border-b'>
               <div>
                 <h6 className='font-bold text-xl'>Tablet</h6>
                 <p>10 Items</p>
@@ -269,7 +346,7 @@ useEffect(() => {
               <img src='images/headphone.jpg' className='w-[7rem]' alt='watch' />
             </div>
 
-            <div className='flex items-center gap-3 w-[23%] justify-between border-r border-slate-200 border-b'>
+            <div className='flex items-center gap-3 lg:w-[23%] w-[100%]  justify-between border-r border-slate-200 border-b'>
               <div>
                 <h6 className='font-bold text-xl'>Boards</h6>
                 <p>10 Items</p>
@@ -279,7 +356,10 @@ useEffect(() => {
 
             
           </Box>
-        </section>
+        </section> */}
+
+
+
 
 
         {/* Featured Collection */}
@@ -342,28 +422,43 @@ useEffect(() => {
           </div>
         </section>
         {/* Special Wrapper */}
-        <section>
+        {/* <section>
           <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Special Products</h3>
           <div className='px-11'>
             
             <div className='flex lg:flex-row flex-col  items-center justify-start gap-[1rem]'>
+            
+            <Swiper
+              // install Swiper modules
+                      modules={[Pagination, Autoplay]}
+                      spaceBetween={50}
+                      slidesPerView={1}
+                      autoplay={{
+                        delay: 1000,
+                        pauseOnMouseEnter: true,
+                        disableOnInteraction: false
+                      }}
               
-              <motion.div className='carousel cursor-grab overflow-hidden ' ref={carousel} >
-                <motion.div drag='x' dragConstraints={{left: 0, right: width}} className='flex bg-lightblue'>
-                  
-                  {products?.map((product) => {
-                      if (product?.tags === 'Special') {
-                        return (<motion.div  ref={element} >
-                          <SpecialProduct product={product} />
-                      </motion.div>)
-                        
-                      }
-                    })}
-                </motion.div>
-            </motion.div>
+                      navigation
+                      pagination={{ clickable: true }}
+                      // scrollbar={{ draggable: true }}
+                      onSwiper={(swiper) => console.log(swiper)}
+                      onSlideChange={() => console.log('slide change')}
+                >
+                    
+                    {products?.map((product) => {
+                        return (
+                          <SwiperSlide>
+                              <SpecialProduct product={product} />
+                          </SwiperSlide>
+                        )
+                          
+                      })} 
+                    
+            </Swiper>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Popular Products Collection */}
         <section>
@@ -419,12 +514,34 @@ useEffect(() => {
         <section>
           <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Our Latest Blogs</h3>
           <div className='flex flex-wrap items-center gap-8 mx-11'>
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
+            
+          <Swiper
+      // install Swiper modules
+              modules={[Pagination, Autoplay]}
+              spaceBetween={50}
+              slidesPerView={4}
+              autoplay={{
+                delay: 2000,
+                pauseOnMouseEnter: true,
+                disableOnInteraction: false
+              }}
+      
+              navigation
+              pagination={{ clickable: true }}
+              // scrollbar={{ draggable: true }}
+              onSwiper={(swiper) => console.log(swiper)}
+              onSlideChange={() => console.log('slide change')}
+        >
+            <SwiperSlide><BlogCard /></SwiperSlide>
+            <SwiperSlide><BlogCard /></SwiperSlide>
+            <SwiperSlide><BlogCard /></SwiperSlide>
+            <SwiperSlide><BlogCard /></SwiperSlide>
+            <SwiperSlide><BlogCard /></SwiperSlide>
+            <SwiperSlide><BlogCard /></SwiperSlide>
+        </Swiper>
           </div>
         </section>
+        
     </div>
   )
 }

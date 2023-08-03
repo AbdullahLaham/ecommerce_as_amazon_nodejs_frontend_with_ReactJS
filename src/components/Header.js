@@ -34,12 +34,12 @@ const Header = () => {
     const {user, currentCart} = useSelector((state) => state.auth) ;
 
 
-    useEffect(() => {
-        for (let i = 0; i < currentCart?.length; i++) {
+    // useEffect(() => {
+    //     for (let i = 0; i < currentCart?.length; i++) {
       
-            setTotalAmount(totalAmount + currentCart[i]['price'] * currentCart[i]['quantity'])
-          }
-      }, []);
+    //         setTotalAmount(totalAmount + currentCart[i]['price'] * currentCart[i]['quantity'])
+    //       }
+    //   }, []);
 
 
     useEffect(() => {
@@ -53,6 +53,17 @@ const Header = () => {
             }
         }))
     }, []);
+
+
+    useEffect(() => {
+        let total = 0;
+        for (let i = 0; i < currentCart?.length; i++) {
+          total += currentCart[i]['price'] * currentCart[i]['quantity'];
+    
+    
+          setTotalAmount(total)
+        }
+      }, [currentCart])
 
     const handleLogout = async () => {
         localStorage.clear();

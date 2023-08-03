@@ -4,6 +4,8 @@ import authReducer from '../features/auth/authSlice';
 import productReducer from '../features/product/productSlice';
 import blogReducer from '../features/blog/blogSlice';
 import contactReducer from '../features/contact/contactSlice';
+import chatReducer from '../features/chat/chatSlice';
+import messageReducer from '../features/message';
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +14,7 @@ export const store = configureStore({
     products: productReducer,
     blog: blogReducer,
     contact: contactReducer,
+    chat: chatReducer,
+    message: messageReducer,
   },
 });
