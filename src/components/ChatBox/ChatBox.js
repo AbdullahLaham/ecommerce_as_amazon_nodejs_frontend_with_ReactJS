@@ -10,25 +10,27 @@ const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
   let dispatch = useDispatch();
 
   // fetching data for header
-  const {userData} = useSelector((state) => state?.auth)
-  // const {messages} = useSelector((state) => state?.chat)
+  // const {userData} = useSelector((state) => state?.auth)
+  const [userData, setUserData] = useState({});
+  const {messages: chatMessages} = useSelector((state) => state?.chat)
 
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(chatMessages);
   const [newMessage, setNewMessage] = useState("");
+  const [currentMessage, setCurrentMessage] = useState({});
+
   const scroll = useRef();
 
     useEffect(() => {      
-        const userId = chat?.members?.find((id) => id !== currentUserId);
-        dispatch(fetchUserData(userId));
+        const userr = chat?.members?.find((user) => user?._id !== currentUserId);
+        // dispatch(fetchUserData(userId));
+        setUserData(userr);
+        setMessages(chatMessages)
+        console.log(messages, 'uyyyyyyyyyyyyyyyuuuuuuuuu')
     }, [chat, currentUserId]);
 
     // fetching data for messages
     useEffect(() => {
-      const userId = chat?.members?.find((id) => id !== currentUserId);
-      const fetchMessages = async () => {
-        dispatch(getMessages(chat?._id));
-      }
-      if (chat != null) fetchMessages();
+      dispatch(getMessages(chat?._id));
   }, [chat, currentUserId]);
 
   // recieve message from the socket server
@@ -54,17 +56,19 @@ const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
       text: newMessage,
       chatId: chat?._id,
     }
+    setCurrentMessage(message)
     // send message to the database
     try {
-      const {data} = await addMessage(message);
-      setMessages([...messages, data])
+      const {data} = dispatch(addMessage(message));
+      setMessages([...chatMessages, data])
+
       setNewMessage("");
     } catch(error) {
       console.log(error);
     }
 
     // send message to the socket server
-    const recieverId = chat.members.find((id) => id !== currentUserId);
+    const recieverId = chat?.members.find((id) => id !== currentUserId);
     setSendMessage({...message, recieverId});
   }
   return (
@@ -79,8 +83,7 @@ const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
               </div>
               <div className='name text-[.8rem] flex flex-col '>
                   <span className='font-semibold text-[1.1rem] '>
-                    {/* {userData?.firstname} {userData?.lastname}  */}
-                    Abdullah Allahham </span>
+                    {userData?.firstname} {userData?.lastname} </span>
                   <span>Online</span>
               </div>
             </div>
@@ -90,16 +93,24 @@ const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
         <hr className='w-[85%] mx-auto border-[.1px] border-[#ececec]' />
         
           {/* chatBox Messages */}
-        <div className='chat-body overflow-y-scroll h-[70vh] bg-red-500' ref={scroll}>
+        <div className='chat-body overflow-y-scroll h-[70vh] ' ref={scroll}>
           {
-            messages.map((message) => (
+            chatMessages.map((message) => (
               <div className={message?.senderId === currentUserId ? "message own" : "message"} >
                 <span>{message?.text}</span>
                 <span>{format(message?.createdAt)}</span>
               </div>
             ))
           }
-
+          {
+            currentMessage?.text ? (
+              <div className={currentMessage?.senderId === currentUserId ? "message own" : "message"} >
+                <span>{currentMessage?.text}</span>
+                <span>{format(currentMessage?.createdAt)}</span>
+              </div>
+            )
+             : <></>
+          }
         </div>
         {/* chat input  */}
         <div className='chat-sender' >

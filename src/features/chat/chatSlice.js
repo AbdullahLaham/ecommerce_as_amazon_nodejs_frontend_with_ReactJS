@@ -5,10 +5,12 @@ import { toast } from 'react-toastify';
 
 
 const initialState = { 
-    blogs: [],
-    postedQuery: {},
+
     messages: [],
     currentMessage: {},
+    currentChat: {},
+    chats: [],
+    // chats: [],
     isError: false,
     isLoading: false,
     isSuccess: false,
@@ -17,7 +19,7 @@ const initialState = {
 
 
 
-export const getMessages = createAsyncThunk('blog/get-messages', async (data, thunkAPI) => {
+export const getMessages = createAsyncThunk('chat/get-messages', async (data, thunkAPI) => {
     try {
         console.log('hello');
 
@@ -32,11 +34,37 @@ export const getMessages = createAsyncThunk('blog/get-messages', async (data, th
 
 
  
-export const addMessage = createAsyncThunk('blog/add-message', async (data, thunkAPI) => {
+export const addMessage = createAsyncThunk('chat/add-message', async (data, thunkAPI) => {
     try {
         console.log('hello');
 
         return await chatService.addMessage(data);
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+
+ })
+
+
+
+ export const createChat = createAsyncThunk('chat/create-chat', async (data, thunkAPI) => {
+    try {
+        console.log('hello');
+
+        return await chatService.createChat(data);
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+
+ })
+
+ export const getUserChats = createAsyncThunk('chat/user-chats', async (userId, thunkAPI) => {
+    try {
+        console.log('hello');
+
+        return await chatService.getUserChats(userId);
         
     } catch (error) {
         return thunkAPI.rejectWithValue(error)
@@ -105,6 +133,64 @@ const brandSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.currentMessage = null;
+        state.message = action.error;
+        if (state?.error === true) {
+            toast.error("Some thing went wrong")
+        }
+    })
+
+
+
+
+
+    .addCase(createChat.pending,(state) => {state.isLoading = true }  )
+   
+     
+    .addCase(createChat.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false ;
+        state.isSuccess = true;
+        state.currentChat = action?.payload;
+        // if (state?.isSuccess === true) {
+        //     toast.success("Contact Form Submitted Successfully")
+        // }
+    })
+
+    .addCase(createChat.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        state.currentChat = null;
+        state.message = action.error;
+        if (state?.error === true) {
+            toast.error("Some thing went wrong")
+        }
+    })
+
+
+
+
+
+
+
+    .addCase(getUserChats.pending,(state) => {state.isLoading = true }  )
+   
+     
+    .addCase(getUserChats.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false ;
+        state.isSuccess = true;
+        state.chats = action?.payload;
+        // if (state?.isSuccess === true) {
+        //     toast.success("Contact Form Submitted Successfully")
+        // }
+    })
+
+    .addCase(getUserChats.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        state.chats = null;
         state.message = action.error;
         if (state?.error === true) {
             toast.error("Some thing went wrong")

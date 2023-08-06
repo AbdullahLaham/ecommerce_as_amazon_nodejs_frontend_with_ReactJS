@@ -3,6 +3,13 @@ import API from '../MainApi'
 import Cookies from 'cookies-js'
 
 
+const getAllUsers = async () => {
+    const res = await API.get(`/user/admin-users`);
+    console.log(res);
+    
+    return res.data;
+}
+
 
 
 const fetchUserData = async (id) => {
@@ -207,18 +214,18 @@ const updateUser = async (data) => {
 
 
 
-const userChats = async (userId) => {
+// const userChats = async (userId) => {
 
-    const res = await API.get(`/user/chat/${userId}`);
+//     const res = await API.get(`/user/chat/${userId}`);
     
-    console.log(res);
+//     console.log(res);
 
-    if (res.data) {
-        return res.data;
-    }
+//     if (res.data) {
+//         return res.data;
+//     }
 
-    return res.data;
-}
+//     return res.data;
+// }
 
 
 
@@ -227,6 +234,7 @@ const authService = {
     login,
     logout,
     register,
+    getAllUsers,
     getOrders,
     getOrdersByID,
     getWishlist,
@@ -239,7 +247,6 @@ const authService = {
     updateUser,
     forgotPassword,
     resetPassword,
-    userChats,
 }
 
 

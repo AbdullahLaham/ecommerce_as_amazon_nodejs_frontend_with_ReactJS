@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 
 const initialState = { 
     user: localStorage.getItem('auth') ? JSON.parse(localStorage.getItem('auth')): null,
+    allUsers: [],
     userData: {},
     orders: [],
     wishlist: [],
@@ -27,6 +28,21 @@ const initialState = {
     isSuccess: false,
     message: '',
  }
+
+
+ 
+ export const getAllUsers = createAsyncThunk('auth/all-users', async (id, thunkAPI) => {
+    try {
+        console.log('hello')
+
+        return await authService.getAllUsers();
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
+    }
+
+ })
+
 
  export const fetchUserData = createAsyncThunk('auth/user-data', async (id, thunkAPI) => {
     try {
@@ -246,20 +262,6 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 
 
 
- export const userChats = createAsyncThunk('auth/user-chats', async (id, thunkAPI) => {
-    
-    try {
-
-        return await authService.userChats(id);
-        
-    } catch (error) {
-
-        return thunkAPI.rejectWithValue(error);
-        
-    }
-
- });
-
  export const resetState = createAction('Reset-all');
 
 
@@ -272,6 +274,30 @@ const authSlice = createSlice({
   extraReducers: (builder ) => {
      builder
 
+
+
+
+     .addCase(getAllUsers.pending,(state) => {state.isLoading = true }  )
+
+    .addCase(getAllUsers.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false;
+        state.isSuccess = true;
+        state.allUsers = action?.payload;
+        // if (state?.isSuccess) {
+        //     toast.success("Verification Done Successfully")
+        // }
+    })
+
+    .addCase(getAllUsers.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        state.allUsers = null;
+        if (state?.isError) {
+            toast.error("Something Went Error")
+        }
+    })
 
 
 
@@ -656,32 +682,6 @@ const authSlice = createSlice({
     })
 
 
-
-
-
-    .addCase(userChats.pending,(state) => {state.isLoading = true }  )
-    
-     
-    .addCase(userChats.fulfilled,(state, action) => {
-        state.isLoading = false ;
-        state.isError = false ;
-        state.isSuccess = true;
-        state.userChats = action?.payload;
-        // if (state?.isSuccess) {
-        //     toast.success('User Updated successfully')
-        // }
-    })
-
-    .addCase(userChats.rejected,(state, action) => {
-        state.isLoading = false ;
-        state.isError = true;
-        state.isSuccess = false;
-        state.userChats = null;
-        state.message = action.error;
-        if (state?.isError) {
-            toast.error('Something went error')
-        }
-    })
 
 
 

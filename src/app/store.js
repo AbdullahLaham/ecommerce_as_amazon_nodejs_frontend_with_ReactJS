@@ -5,7 +5,7 @@ import productReducer from '../features/product/productSlice';
 import blogReducer from '../features/blog/blogSlice';
 import contactReducer from '../features/contact/contactSlice';
 import chatReducer from '../features/chat/chatSlice';
-import messageReducer from '../features/message';
+// import messageReducer from '../features/me';
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +15,6 @@ export const store = configureStore({
     blog: blogReducer,
     contact: contactReducer,
     chat: chatReducer,
-    message: messageReducer,
+    // message: messageReducer,
   },
 });
