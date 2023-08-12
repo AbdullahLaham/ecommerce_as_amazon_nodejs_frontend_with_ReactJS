@@ -5,6 +5,7 @@ import {format} from 'timeago.js';
 import InputEmoji from 'react-input-emoji';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, getMessages } from '../../features/chat/chatSlice';
+import API from '../../features/MainApi';
 const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
 
   let dispatch = useDispatch();
@@ -12,28 +13,55 @@ const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
   // fetching data for header
   // const {userData} = useSelector((state) => state?.auth)
   const [userData, setUserData] = useState({});
-  const {messages: chatMessages} = useSelector((state) => state?.chat)
-
+  const {messages: chatMessages} = useSelector((state) => state?.chat);
+  const [currentChat, setCurrentChat] = useState({});
+  const {chats} = useSelector((state) => state?.chat)
   const [messages, setMessages] = useState(chatMessages);
   const [newMessage, setNewMessage] = useState("");
   const [currentMessage, setCurrentMessage] = useState({});
 
   const scroll = useRef();
 
-    useEffect(() => {      
+
+
+  const recieverId = chat?.members.find((member) => member?._id !== currentUserId);
+
+
+  console.log(recieverId, 'rrrrrrrrrrrrrooooooooooooooooo')
+  // fetching data for messages
+    useEffect(() => {
+        dispatch(getMessages(chat?._id));
+    }, [chat, currentUserId]);
+
+    useEffect(() => {
+        setMessages(chatMessages);      
         const userr = chat?.members?.find((user) => user?._id !== currentUserId);
         // dispatch(fetchUserData(userId));
         setUserData(userr);
-        setMessages(chatMessages)
-        console.log(messages, 'uyyyyyyyyyyyyyyyuuuuuuuuu')
+        setMessages(chatMessages);
+        console.log(messages, 'uyyyyyyyyyyyyyyyuuuuuuuuu');
     }, [chat, currentUserId]);
 
-    // fetching data for messages
-    useEffect(() => {
-      dispatch(getMessages(chat?._id));
-  }, [chat, currentUserId]);
+    
 
+  // useEffect(() => {
+  //   setCurrentChat(chat);
+  // }, [])
   // recieve message from the socket server
+
+
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const {data} = await API.get(`/messages/${chat?._id}`)
+      setMessages(data);
+    }
+    fetchMessages();
+  }, [chat])
+
+
+
+
   useEffect(() => {
     if (recieveMessage !== null && recieveMessage.chatId == chat?._id) {
       setMessages([...messages, recieveMessage]);
@@ -60,7 +88,7 @@ const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
     // send message to the database
     try {
       const {data} = dispatch(addMessage(message));
-      setMessages([...chatMessages, data])
+      setMessages([...messages, message])
 
       setNewMessage("");
     } catch(error) {
@@ -68,7 +96,7 @@ const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
     }
 
     // send message to the socket server
-    const recieverId = chat?.members.find((id) => id !== currentUserId);
+    const recieverId = chat?.members.find((member) => member?._id !== currentUserId);
     setSendMessage({...message, recieverId});
   }
   return (
@@ -95,14 +123,14 @@ const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
           {/* chatBox Messages */}
         <div className='chat-body overflow-y-scroll h-[70vh] ' ref={scroll}>
           {
-            chatMessages.map((message) => (
+            messages.map((message) => (
               <div className={message?.senderId === currentUserId ? "message own" : "message"} >
                 <span>{message?.text}</span>
                 <span>{format(message?.createdAt)}</span>
               </div>
             ))
           }
-          {
+          {/* {
             currentMessage?.text ? (
               <div className={currentMessage?.senderId === currentUserId ? "message own" : "message"} >
                 <span>{currentMessage?.text}</span>
@@ -110,7 +138,7 @@ const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
               </div>
             )
              : <></>
-          }
+          } */}
         </div>
         {/* chat input  */}
         <div className='chat-sender' >

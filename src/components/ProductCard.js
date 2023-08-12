@@ -37,8 +37,9 @@ const ProductCard = ({grid, product}) => {
     
   return (
     <div className={`product-card bg-white ${grid == 3 ? 'flex': ""} mb-2 min-w-[15rem] items-center rounded-md relative product-card gr-${grid} px-2 py-2`}>
-        <button onClick={() => addProductToWishlist()} className='cursor-pointer  p-1 rounded-full hover:text-red-500 font-bold absolute top-2 right-[1rem]'>
-            {selected ? <BsFillHeartFill className='fill-red-500' onClick={() => setSelected(false)} /> : alreadyAdded ?  <BsFillHeartFill className='fill-red-500' onClick={() => setSelected(false)} /> : <BsHeart onClick={() => setSelected(true)} className='font-bold' />}
+        <button  className='cursor-pointer  p-1 rounded-full hover:text-red-500 font-bold absolute top-2 right-[1rem]'>
+            {console.log(wishlist?.findIndex((item) => item?._id == product?._id))}
+            {selected ? <BsFillHeartFill className='fill-red-500' onClick={() => setSelected(false)} /> : wishlist?.findIndex((item) => item?._id == product?._id) !== -1 ?  <BsFillHeartFill className='fill-red-500' onClick={() => setSelected(false)} /> : <BsHeart onClick={() => {setSelected(true); addProductToWishlist()}}className='font-bold' />}
         </button>
 
         <Link to={`/product/${product?._id}`}>

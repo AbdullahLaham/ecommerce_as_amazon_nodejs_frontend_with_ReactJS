@@ -12,7 +12,7 @@ const Cart = () => {
   
   // const [counter, setCounter] = useState(product?.qty);
   const dispatch = useDispatch();
-  const {user, currentCart, isLoading, updatedCartItem} = useSelector((state) => state.auth) ; 
+  const {user, currentCart, isLoading, updatedCartItem, deletedCartItem, newCartItem} = useSelector((state) => state.auth) ; 
   const [totalAmount, setTotalAmount] = useState(0);
 
 
@@ -31,7 +31,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getUserCart());
-  }, [updatedCartItem]);
+  }, [updatedCartItem, deletedCartItem, newCartItem]);
 
   // useEffect(() => {
   //   dispatch(updateCartProductQuantity(id: cartId))

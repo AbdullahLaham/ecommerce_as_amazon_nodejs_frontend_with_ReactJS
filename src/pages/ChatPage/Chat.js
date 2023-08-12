@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../features/auth/authSlice';
-import LogoSearch from '../../components/LogoSearch'
-import NavIcons from '../../components/NavIcons';
+// import LogoSearch from '../../components/LogoSearch'
+// import NavIcons from '../../components/NavIcons';
 import ChatBox from '../../components/ChatBox/ChatBox';
 import Conversation from '../../components/Conversation'
 import {BsPlusCircleDotted} from 'react-icons/bs'
@@ -20,6 +20,7 @@ import './Chat.css'
 
 import { io } from 'socket.io-client';
 import { createChat, getUserChats } from '../../features/chat/chatSlice';
+import API from '../../features/MainApi';
 
 const Chat = () => {
   // authData
@@ -70,7 +71,7 @@ const Chat = () => {
     dispatch(getUserChats(user?._id));
     dispatch(getAllUsers());
   }, [user]);
-
+  
   // send message to the socket server
   useEffect(() => {
     if (sendMessage !== null) {
@@ -80,7 +81,7 @@ const Chat = () => {
 
   // recieve message from the the socket server
   useEffect(() => {
-    setCurrentChat(chats[0]);
+    // setCurrentChat(chats[0]);
     socket.current.on("recieve-message", (data) => {
       setRecieveMessage(data);
     })

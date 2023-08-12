@@ -17,6 +17,7 @@ const initialState = {
     userData: {},
     orders: [],
     wishlist: [],
+    newCartItem: {},
     deletedCartItem: {},
     updatedCartItem: {},
     createdOrder: {},
@@ -504,16 +505,18 @@ const authSlice = createSlice({
         state.isLoading = false ;
         state.isError = false ;
         state.isSuccess = true;
-        // state.message = 'Product Added To Wishlist !',
-
-        state.wishlist = action?.payload?.wishlist;
+        state.newCartItem = action?.payload;
+        if (state?.isSuccess) {
+            toast.success("Product Added To Cart Successfully")
+        }
+        
     })
 
     .addCase(addToCart.rejected,(state, action) => {
         state.isLoading = false ;
         state.isError = true;
         state.isSuccess = false;
-        state.wishlist = null;
+        state.newCartItem = null;
         state.message = action.error;
         if (state?.isError) {
             toast.error("Something Went Error")

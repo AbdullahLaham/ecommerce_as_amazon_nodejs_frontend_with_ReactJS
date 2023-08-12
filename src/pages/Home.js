@@ -28,37 +28,6 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const [width, setWidth] = useState(0);
-  const element = useRef();
-  const [windowSize, setWindowSize] = useState([
-    window.innerWidth,
-    window.innerHeight,
-  ]);
-const [result, setResult] = useState(false);
-
-
-
-  useEffect(() => {
-    const handleWindowResize = () => {
-      setWindowSize([window.innerWidth, window.innerHeight]);
-    };
-
-    window.addEventListener('resize', handleWindowResize);
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  });
-  
-useEffect(() => {
-    console.log(windowSize);
-    setResult(window.matchMedia("(max-width: 800px)"));
-}, [windowSize]);
-
-
-
-  useEffect(() => {
-    setWidth(result.matches && (7 * element?.current?.clientWidth));
-  }, []);
 
 
   useEffect(() => {
@@ -70,11 +39,12 @@ useEffect(() => {
 
   const {isLoading, products} = useSelector((state) => state?.products);
 
-  console.log(products, 'tttttttttt');
+  // console.log(products, 'tttttttttt');
 
-  const matches = useMediaQuery('(min-width:600px)');
+  const isMobile = useMediaQuery('(max-width:550px)');
 
-  console.log(matches, 'rr')
+  const isTablet = useMediaQuery('(max-width:1000px)');
+
   if (isLoading) {
     return <div className='w-[100%] h-[60vh] flex items-center justify-center'>
       <CircularProgress />
@@ -87,7 +57,7 @@ useEffect(() => {
       
         <section className=''>
           <div className='flex flex-col lg:flex-row  gap-2 justify-center mx-[.5rem] my-2'>
-            <div className='h-[100%] min-w-[100%] w-[100%]  lg:w-[50%] lg:min-w-[50%]  '>
+            <div className='min-h-[100%] min-w-[100%] w-[100%]  lg:w-[50%] lg:min-w-[50%]  max-h-[100%] '>
             <Swiper
               // install Swiper modules
                   modules={[Pagination, Autoplay]}
@@ -102,8 +72,8 @@ useEffect(() => {
                   // navigation
                   pagination={{ clickable: true }}
                   // scrollbar={{ draggable: true }}
-                  onSwiper={(swiper) => console.log(swiper)}
-                  onSlideChange={() => console.log('slide change')}
+                  // onSwiper={(swiper) => console.log(swiper)}
+                  // onSlideChange={() => console.log('slide change')}
             >
 
               <SwiperSlide>
@@ -165,7 +135,8 @@ useEffect(() => {
               </Swiper>
 
             </div>
-            <div className=' lg:max-w-[45%] lg:w-[45%] w-[100%] hidden lg:flex items-center justify-between h-[100%]'>
+            
+            <div className=' lg:max-w-[45%] lg:w-[45%] w-[100%] hidden lg:flex items-center justify-between min-h-[100%] max-h-[100%] '>
             <div className='jflex flex-col gap-[.2rem] justify-between gap-1rem w-[100%] lg:w-[50%] h-[100%] m-[.2rem]'>
               <div className='relative w-[100%]  mx-[.1rem] mt-0 '>
                 <img src='images/catbanner-01.jpg' className='rounded-md w-[40rem]'/>
@@ -369,22 +340,37 @@ useEffect(() => {
             <motion.div className='carousel cursor-grab overflow-hidden ' ref={carousel} >
                   <motion.div drag='x' dragConstraints={{left: 0, right: width*3}} className='flex bg-lightblue'>
                     
-                    {products?.map((product) => {
-                        // if (product?.tags === 'Featured') {
-                          return (<motion.div  ref={element} >
-                            <SpecialProduct product={product} />
-                        </motion.div>)
-                          
-                        
-                      })}
+                    
                   </motion.div>
               </motion.div>
+
+
+
+
+              <Swiper
+                  modules={[Pagination, Navigation]}
+                  spaceBetween={50}
+                  slidesPerView={isMobile ? 1 : isTablet ? 2 : 4}
+                  navigation
+                  pagination={{ clickable: true }}
+                  // scrollbar={{ draggable: true }}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  onSlideChange={() => console.log('slide change')}
+            >
+                {products?.map((product) => {
+                    // if (product?.tags === 'Featured') {
+                      return <SwiperSlide><SpecialProduct product={product} /></SwiperSlide>
+
+                    
+                  })}
+            </Swiper>
           </div>
         </section>
 
         {/* famous products */}
-        <section className='py-5 flex items-center mx-11 gap-2'>
-          <div className='relative w-[20rem] rounded-[1rem]'>
+        <section className='py-5 flex items-center justify-center lg:gap-5 mx-11 gap-2 flex-wrap'>
+        <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Famous Products</h3>
+          <div className='relative w-[100%]  lg:w-[15rem] rounded-[1rem]'>
             <img src='images/famous-1.webp' alt='product' className='object-cover' />
             <div className='card-content absolute top-[13%] left-[7%] font-semibold  text-white'>
               <h5 className='text-[.8rem] text-gray-200 leading-[20px] '>Big Screen</h5>
@@ -393,7 +379,7 @@ useEffect(() => {
 
             </div>
           </div>
-          <div className='relative w-[20rem] rounded-[1rem]'>
+          <div className='relative w-[100%]  lg:w-[15rem] rounded-[1rem]'>
             <img src='images/famous-2.webp' alt='product' className='object-cover' />
             <div className='card-content absolute top-[13%] left-[7%] font-semibold '>
               <h5 className='text-[.8rem] text-gray-400 leading-[20px] '>Big Screen</h5>
@@ -402,7 +388,7 @@ useEffect(() => {
 
             </div>
           </div>
-          <div className='relative w-[20rem] rounded-[1rem]'>
+          <div className='relative w-[100%]  lg:w-[15rem] rounded-[1rem]'>
             <img src='images/famous-3.webp' alt='product' className='object-cover' />
             <div className='card-content absolute top-[13%] left-[7%] font-semibold '>
               <h5 className='text-[.8rem] text-gray-400 leading-[20px] '>Big Screen</h5>
@@ -411,7 +397,7 @@ useEffect(() => {
 
             </div>
           </div>
-          <div className='relative w-[20rem] rounded-[1rem]'>
+          <div className='relative w-[100%]  lg:w-[15rem] rounded-[1rem]'>
             <img src='images/famous-4.webp' alt='product' className='object-cover' />
             <div className='card-content absolute top-[13%] left-[7%] font-semibold '>
               <h5 className='text-[.8rem] text-gray-400 leading-[20px] '>Big Screen</h5>
@@ -511,7 +497,7 @@ useEffect(() => {
         
 
 
-        <section>
+        <section className='my-[1rem] '>
           <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Our Latest Blogs</h3>
           <div className='flex flex-wrap items-center gap-8 mx-11'>
             
@@ -519,7 +505,7 @@ useEffect(() => {
       // install Swiper modules
               modules={[Pagination, Autoplay]}
               spaceBetween={50}
-              slidesPerView={4}
+              slidesPerView={isMobile ? 1 : isTablet ? 2 : 4}
               autoplay={{
                 delay: 2000,
                 pauseOnMouseEnter: true,

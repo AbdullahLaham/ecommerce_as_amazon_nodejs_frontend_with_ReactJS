@@ -11,7 +11,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { addToWishlist, getAProduct, rateProduct } from '../features/product/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, getWishlist } from '../features/auth/authSlice';
+import { addToCart, getUserCart, getWishlist } from '../features/auth/authSlice';
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs';
 
 const SingleProduct = () => {
@@ -20,7 +20,7 @@ const SingleProduct = () => {
   const [alreadyAdded, setAlreadyAdded] = useState(false);
   const [selected, setSelected] = useState('1');
   const [wselected, setWSelected] = useState('1');
-  const {user, currentCart, wishlist} = useSelector((state) => state.auth) ; 
+  const {user, currentCart, wishlist, newCartItem} = useSelector((state) => state.auth) ; 
   const [color, setColor] = useState(null);
   // quantity
   const [counter, setCounter] = useState(1);
@@ -29,7 +29,7 @@ const SingleProduct = () => {
   // console.log(currentProduct, 'trtr')
   const dispatch = useDispatch();
   const {id} = useParams();
-  console.log(currentProduct, 'rrrrrrrrr');
+  console.log(currentCart, 'pppppooooooooo');
 
   
   useEffect(() => {
@@ -105,7 +105,9 @@ const SingleProduct = () => {
     dispatch(getWishlist())
 }
  
-
+useEffect(() => {
+  dispatch(getUserCart());
+}, [newCartItem])
 if (isLoading) {
   return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
       <CircularProgress />
@@ -224,27 +226,31 @@ if (isLoading) {
                   </div>
 
                   <div className='  text-gray-600 font-semibold flex items-center justify-end w-full gap-3'>
-                    {
-                      !alreadyAdded == true ? (
-                        <button onClick={() => addProductToCart()}  className='font-semibold mt-3 px-3 py-1 text-white bg-[#353a41] hover:bg-[#212529] rounded-[1rem] cursor-pointer '>
-                          Add To Cart
-                        </button>
-                      ) : (
-                        <Link to='/cart' className='font-semibold mt-3 px-3 py-1 text-white bg-[#353a41] hover:bg-[#212529] rounded-[1rem] cursor-pointer '>
-                          Move To Cart
-                        </Link>
-                      )
-                    }
-                    <button  className='font-semibold mt-3 px-3 py-1 bg-[#fda839] hover:bg-[#353a41] hover:text-[#ffc57a] text-[#353a41] rounded-[1rem] cursor-pointer '>
+                    <div>
+                      {
+                        currentCart?.findIndex((item) => item?.productId?._id == currentProduct?._id) == -1 ? (
+                          <button onClick={() => addProductToCart()}  className='font-semibold mt-3 px-3 py-1 text-white bg-[#353a41] hover:bg-[#212529] rounded-[1rem] cursor-pointer '>
+                            Add To Cart
+                          </button>
+                        ) : (
+                          <Link to='/cart' className='font-semibold mt-3 px-3 py-1 text-white bg-[#353a41] hover:bg-[#212529] rounded-[1rem] cursor-pointer '>
+                            Move To Cart
+                          </Link>
+                        )
+                      }
+                    </div>
+                    <button  className='font-semibold mt-3 px-3 py-1 bg-[#fda839] hover:bg-[#353a41] hover:text-[#ffc57a] text-[#353a41] rounded-[1rem] cursor-pointer ' >
                       Buy It Now
                     </button>
+
+                    
                   </div>
-                  <div className='flex items-center gap-3 my-[1rem]'  >
-                    <div className={`${!alreadyAdded ? 'bg-red-500 text-white hover:text-red-500' : ''} px-2 py-1 border border-gray-100 flex items-center gap-2 text-gray-800 cursor-pointer rounded-md hover:bg-red-500  hover:text-white`} onClick={() => {addProductToWishlist(); setWSelected(true)}}>
-                    <button className='cursor-pointer  p-1 rounded-full hover:text-red-500 font-bold absolute top-2 right-[1rem]'>
-                        {wselected ? <BsFillHeartFill className='fill-red-500' onClick={() => setWSelected(false)} /> : alreadyAdded ?  <BsFillHeartFill className='fill-red-500' onClick={() => setWSelected(false)} /> : <BsHeart onClick={() => setWSelected(true)} className='font-bold' />}
-                    </button>
-                      <p className='text-[1rem] font-semibold  '>{!alreadyAdded ? 'Added To Wishlist' : 'Add To Wishlist'}</p>
+                  <div className='flex items-center gap-3 border border-gray-200 mb-[1.5rem]'  >
+                      <div className={`${wishlist?.findIndex((item) => item?._id == currentProduct?._id) ? 'bg-red-500 text-white hover:text-red-500' : ''} px-2 py-1 border border-gray-100 flex items-center gap-2 text-gray-800 cursor-pointer rounded-md hover:bg-red-500  hover:text-white`} onClick={() => {addProductToWishlist(); setWSelected(true)}}>
+                      <button className='cursor-pointer  p-1 rounded-full hover:text-red-500 font-bold absolute top-2 right-[1rem]'>
+                          {wselected ? <BsFillHeartFill className='fill-red-500' onClick={() => setWSelected(false)} /> : wishlist?.findIndex((item) => item?._id == currentProduct?._id) ?  <BsFillHeartFill className='fill-red-500' onClick={() => setWSelected(false)} /> : <BsHeart onClick={() => setWSelected(true)} className='font-bold' />}
+                      </button>
+                        <p className='text-[1rem] font-semibold  '>{!alreadyAdded ? 'Added To Wishlist' : 'Add To Wishlist'}</p>
 
                     </div>
                     {/* <div className='px-2 py-1 border border-gray-100 flex items-center gap-2 cursor-pointer rounded-md hover:bg-gray-100'>

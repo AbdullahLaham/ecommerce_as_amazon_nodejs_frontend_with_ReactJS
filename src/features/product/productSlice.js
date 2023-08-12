@@ -139,7 +139,7 @@ const productSlice = createSlice({
         state.isSuccess = true;
         // state.message = 'Product Added To Wishlist !',
         if (state?.isSuccess) {
-            toast.success('Product Added to wishlist successfully')
+            toast.success('Wishlist Updated Successfully')
         }
         state.addedToWishlist = action?.payload;
     })
@@ -179,7 +179,7 @@ const productSlice = createSlice({
         if (state?.isError) {
             toast.error('Something went error')
         }
-        state.addedToWishlist = null;
+        state.currentProduct = null;
         state.message = action.error;
     })
 

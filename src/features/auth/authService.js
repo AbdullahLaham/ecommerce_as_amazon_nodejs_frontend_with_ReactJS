@@ -129,7 +129,7 @@ const addToCart = async (data) => {
 
 
 
-const getUserCart = async (id) => {
+const getUserCart = async () => {
     const res = await API.get(`/user/cart`);
     console.log(res);
 

@@ -12,7 +12,9 @@ const Wishlist = () => {
 
     const deleteFromWishlist = async (prodId) => {
         dispatch(addToWishlist(prodId));
+        window.location.reload();
         // dispatch(resetState());
+
         dispatch(getWishlist());
         
     }
@@ -36,10 +38,10 @@ const Wishlist = () => {
         
             {wishlist?.map((item) => {
                 return (
-                    <div className='relative w-[14rem] min-h-[18rem]  rounded-md p-2 bg-white mb-[1.5rem] '>
+                    <div className='relative w-[14rem] h-[25rem]  rounded-md p-2 bg-white mb-[1.5rem] '>
                         <img src='images/cross.svg' alt='cross' onClick={() => deleteFromWishlist(item?._id)} className='w-[1rem] h-[1rem] cursor-pointer absolute top-5 right-5 ' />
                         <div className=' bg-white mt-[2rem]'>
-                            <img src={item?.images[0]?.url || 'images/watch.jpg'} className='w-[12rem] h-[10rem] object-cover m-auto ' />
+                            <img src={item?.images[0]?.url || 'images/watch.jpg'} className='w-[12rem] object-cover m-auto ' />
                         </div>
                         <div className='px-2'>
                             <h5 className='title text-[.9rem] leading-[22px] font-semibold my-2 '>

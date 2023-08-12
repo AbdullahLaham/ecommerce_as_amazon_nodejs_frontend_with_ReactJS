@@ -15,27 +15,30 @@ const SpecialProduct = ({ product }) => {
 
 
   return (
-    <div className='flex items-center justify-start bg-white p-3 min-w-[25rem] mx-[1rem] lg:w-auto'>
+    <div className=' bg-white p-3 mx-[1rem] flex-1 '>
         {/* images section */}
-        <div>
-            <img src={product?.images[0]?.url || 'images/watch.jpg'} className='' alt='product image' />
+        <div className='flex items-center justify-start gap-[.5rem] h-[10rem]'>
+            <img src={product?.images[0]?.url || 'images/watch.jpg'} className='lg:w-[50%] w-[100%] max-h-[10rem]' alt='product image' />
+            <div className='hidden lg:block'>
+              <h5 className='text-red-700 font-semibold  '>{product?.brand}</h5>
+              <h6 className='font-bold text-[.7rem] '>
+                {product?.title}
+              </h6>
+              <ReactStars count={5} value={product?.totalrating} edit={false} onChange={changeRating} size={24} activeColor="#ffd700"/>
+              
+              <p className='text-red-500 flex items-center justify-start gap-3 font-bold'>$100 <span className='text-gray-500 line-through'>$75.00</span></p>
+            </div>
         </div>
 
         {/* details section */}
         <div className=''>
-          <h5 className='text-red-700 font-semibold  '>{product?.brand}</h5>
-          <h6 className='font-bold text-[1rem] '>
-            {product?.title}
-          </h6>
-          <ReactStars count={5} value={product?.totalrating} edit={false} onChange={changeRating} size={24} activeColor="#ffd700"/>
           
-          <p className='text-red-500 flex items-center justify-start gap-3 font-bold'>$100 <span className='text-gray-500 line-through'>$75.00</span></p>
           <div className='discount-till flex items-center gap-2 my-4'>
             <p>878 <span className='text-gray-500 font-semibold'>Days</span> </p>
             <div className='time-clock flex items-center gap-2 '>
-              <p className='p-4 text-white font-bold  flex items-center justify-center bg-red-400 w-[1rem] h-[1rem] rounded-full '>05</p> : 
-              <p className='p-4 text-white font-bold  flex items-center justify-center bg-red-400 w-[1rem] h-[1rem] rounded-full '>20</p> : 
-              <p className='p-4 text-white font-bold  flex items-center justify-center bg-red-400 w-[1rem] h-[1rem] rounded-full '>30</p>
+              <p className='p-4 text-white font-bold  flex items-center justify-center bg-red-400 w-[.6rem] h-[.6rem] rounded-full '>05</p> : 
+              <p className='p-4 text-white font-bold  flex items-center justify-center bg-red-400 w-[.6rem] h-[.6rem] rounded-full '>20</p> : 
+              <p className='p-4 text-white font-bold  flex items-center justify-center bg-red-400 w-[.6rem] h-[.6rem] rounded-full '>30</p>
             </div>
           </div>
           <p className='text-gray-500 font-semibold'>Products: {product?.quantity}</p>

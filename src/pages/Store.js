@@ -65,7 +65,11 @@ const Store = () => {
 
   useEffect(() => {
       dispatch(getWishlist())
-    }, [, addedToWishlist])
+    }, [, addedToWishlist]);
+
+
+
+
   console.log(products, 'trtr')
 
 
@@ -254,6 +258,7 @@ const Store = () => {
             <div className='flex items-center justify gap-2 flex-wrap '>
               {products?.map((product) => {
                 return (
+                  
                   <ProductCard grid={grid} product={product} />
                 )
               })}

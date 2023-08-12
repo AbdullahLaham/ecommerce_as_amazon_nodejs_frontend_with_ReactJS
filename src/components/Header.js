@@ -43,7 +43,7 @@ const Header = () => {
 
 
     useEffect(() => {
-        dispatch(getUserCart());
+        dispatch(getUserCart(user?._id));
         setProductOptions(products?.map((item, i) => {
             return {
                 id: i,
