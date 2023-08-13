@@ -3,46 +3,53 @@ import Meta from '../components/Meta';
 import BreadCrumb from '../components/BreadCrumb';
 import ReactStars from "react-rating-stars-component";
 import ProductCard from '../components/ProductCard';
-import { Button, CircularProgress, TextField } from '@mui/material';
+import { Button, CircularProgress, TextField, useMediaQuery } from '@mui/material';
 import ReactImageZoom from 'react-image-zoom';
 import Colors from '../components/Colors';
 import {IoIosGitCompare, IoMdHeartEmpty} from 'react-icons/io';
 import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { addToWishlist, getAProduct, rateProduct } from '../features/product/productSlice';
+import {  getAProduct, rateProduct } from '../features/product/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, getUserCart, getWishlist } from '../features/auth/authSlice';
+import { addToCart, addToWishlist, getUserCart, getWishlist } from '../features/auth/authSlice';
 import { BsFillHeartFill, BsHeart } from 'react-icons/bs';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+
+
 
 const SingleProduct = () => {
+
+  const {id} = useParams();
   const [orderProduct, setOrderProduct] = useState(0);
   const {currentProduct, products, isLoading} = useSelector((state) => state?.products);
   const [alreadyAdded, setAlreadyAdded] = useState(false);
   const [selected, setSelected] = useState('1');
   const [wselected, setWSelected] = useState('1');
-  const {user, currentCart, wishlist, newCartItem} = useSelector((state) => state.auth) ; 
+  const {user, currentCart, wishlist, newCartItem, addedToWishlist} = useSelector((state) => state.auth) ; 
   const [color, setColor] = useState(null);
   // quantity
   const [counter, setCounter] = useState(1);
 
   const props = {width: 500, height: 450, zoomWidth: 500, objectFit: 'cover',  img: currentProduct?.images && currentProduct?.images[0]?.url || "/images/watch2.webp"};
+ 
+ 
   // console.log(currentProduct, 'trtr')
   const dispatch = useDispatch();
-  const {id} = useParams();
-  console.log(currentCart, 'pppppooooooooo');
 
-  
+ 
+
+  const isMobile = useMediaQuery('(max-width:550px)');
+
+  const isTablet = useMediaQuery('(max-width:1000px)');
+
+
   useEffect(() => {
     
     dispatch(getAProduct(id));
-
-    {currentCart?.map((cart) => {
-      if (cart?.productId?._id == currentProduct?._id) {
-        setAlreadyAdded(true);
-      }
-    })}
-
-  }, [id]);
+    dispatch(getWishlist())
+  }, [id, addedToWishlist]);
 
 
   const copyToClipboard = (text) => {
@@ -246,13 +253,13 @@ if (isLoading) {
                     
                   </div>
                   <div className='flex items-center gap-3 border border-gray-200 mb-[1.5rem]'  >
-                      <div className={`${wishlist?.findIndex((item) => item?._id == currentProduct?._id) ? 'bg-red-500 text-white hover:text-red-500' : ''} px-2 py-1 border border-gray-100 flex items-center gap-2 text-gray-800 cursor-pointer rounded-md hover:bg-red-500  hover:text-white`} onClick={() => {addProductToWishlist(); setWSelected(true)}}>
-                      <button className='cursor-pointer  p-1 rounded-full hover:text-red-500 font-bold absolute top-2 right-[1rem]'>
-                          {wselected ? <BsFillHeartFill className='fill-red-500' onClick={() => setWSelected(false)} /> : wishlist?.findIndex((item) => item?._id == currentProduct?._id) ?  <BsFillHeartFill className='fill-red-500' onClick={() => setWSelected(false)} /> : <BsHeart onClick={() => setWSelected(true)} className='font-bold' />}
+                      {/* <div className={`${wishlist?.findIndex((item) => item?._id == currentProduct?._id) !== -1 ? 'bg-red-500 text-white ' : ''} px-2 py-1 border-gray-100 flex items-center gap-2 text-gray-800 cursor-pointer rounded-md border-2 hover:border-red-500`} onClick={() => {addProductToWishlist(); setWSelected(true)}}>
+                      <button className='cursor-pointer  p-1 rounded-full hover:text-red-500 font-bold top-2 right-[1rem]'>
+                          {wishlist?.findIndex((item) => item?._id == currentProduct?._id) !== -1  ?  <BsFillHeartFill className='fill-red-500' onClick={() => setWSelected(false)} /> : <BsHeart onClick={() => setWSelected(true)} className='font-bold' />}
                       </button>
-                        <p className='text-[1rem] font-semibold  '>{!alreadyAdded ? 'Added To Wishlist' : 'Add To Wishlist'}</p>
+                        <p className='text-[1rem] font-semibold  '>{wishlist?.findIndex((item) => item?._id == currentProduct?._id) !== -1 ? 'Added To Wishlist' : 'Add To Wishlist'}</p>
 
-                    </div>
+                    </div> */}
                     {/* <div className='px-2 py-1 border border-gray-100 flex items-center gap-2 cursor-pointer rounded-md hover:bg-gray-100'>
                       <IoIosGitCompare  className='text-[1rem]  font-semibold  '/>
                       <p className='text-[1rem]  text-gray-800 font-semibold' >Add To Compare</p>
@@ -360,12 +367,32 @@ if (isLoading) {
         <section>
             <h4 className='font-bold text-[1.5rem] text-gray-600 my-2'>Our Popular Products</h4>
             <div className='flex items-center gap-2 flex-wrap'>
-              {products?.map((product) => {
+              
+              <Swiper
+                  modules={[Pagination, Autoplay]}
+                  spaceBetween={50}
+                  slidesPerView={isMobile ? 1 : isTablet ? 2 : 5}
+                  autoplay={{
+                    delay: 2000,
+                    pauseOnMouseEnter: true,
+                    disableOnInteraction: false
+                  }}
+          
+                  
+                  pagination={{ clickable: true }}
+                  // scrollbar={{ draggable: true }}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  onSlideChange={() => console.log('slide change')}
+            >
+
+                {products?.map((product) => {
                 if (product?.category == currentProduct?.category || product?.tags == currentProduct?.tags || product?.brand == currentProduct?.brand) {
-                  return <ProductCard grid={5} product={product} />
+                  return <SwiperSlide>
+                    <ProductCard grid={4} product={product} />
+                  </SwiperSlide>
                 }
               })}
-              
+            </Swiper>
             </div>
         </section>
     </div>

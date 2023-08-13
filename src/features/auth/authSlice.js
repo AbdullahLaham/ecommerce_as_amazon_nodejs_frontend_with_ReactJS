@@ -19,6 +19,7 @@ const initialState = {
     wishlist: [],
     newCartItem: {},
     deletedCartItem: {},
+    addedToWishlist: {},
     updatedCartItem: {},
     createdOrder: {},
     currentOrder: {},
@@ -239,6 +240,19 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 
         return thunkAPI.rejectWithValue(error);
         
+    }
+
+ });
+
+
+ export const addToWishlist = createAsyncThunk('products/add-wishlist', async (productId, thunkAPI) => {
+    
+    try {
+
+        return await authService.addToWishlist(productId);
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error)
     }
 
  });
@@ -658,6 +672,30 @@ const authSlice = createSlice({
 
 
 
+    .addCase(addToWishlist.pending,(state) => {state.isLoading = true }  )
+    
+     
+    .addCase(addToWishlist.fulfilled,(state, action) => {
+        state.isLoading = false ;
+        state.isError = false ;
+        state.isSuccess = true;
+        // state.message = 'Product Added To Wishlist !',
+        if (state?.isSuccess) {
+            toast.success('Wishlist Updated Successfully')
+        }
+        state.user = action?.payload;
+    })
+
+    .addCase(addToWishlist.rejected,(state, action) => {
+        state.isLoading = false ;
+        state.isError = true;
+        state.isSuccess = false;
+        if (state?.isError) {
+            toast.error('Something went error')
+        }
+        state.message = action.error;
+    })
+
 
 
     .addCase(updateUser.pending,(state) => {state.isLoading = true }  )
@@ -667,7 +705,7 @@ const authSlice = createSlice({
         state.isLoading = false ;
         state.isError = false ;
         state.isSuccess = true;
-        state.updatedUser = action?.payload;
+        state.user = action?.payload;
         if (state?.isSuccess) {
             toast.success('User Updated successfully')
         }

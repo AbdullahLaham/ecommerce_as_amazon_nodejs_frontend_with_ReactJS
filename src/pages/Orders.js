@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAnOrder } from '../features/auth/authSlice';
 import { useState } from 'react';
+import API from '../features/MainApi';
 
 const Orders = () => {
 
@@ -13,7 +14,7 @@ const Orders = () => {
 
     const dispatch = useDispatch();
 
-    const {currentOrder, isLoading} = useSelector((state) => state?.auth);
+    const {currentOrder, isLoading, currentCart, user, createdOrder} = useSelector((state) => state?.auth);
 
     useEffect(() => {
         dispatch(getAnOrder(id))
@@ -22,6 +23,26 @@ const Orders = () => {
     const [totalAmount, setTotalAmount] = useState(0);
 
     let total = 0;
+
+    const handleCheckout = async () => {
+        try {
+          const res = await API.post('/stripe/create-checkout-session', {
+            cartItems: currentCart,
+            userId: user?._id,
+            orderData: createdOrder,
+          });
+          if (res.data.url) {
+            window.location.href = res.data.url;
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+    
+      }
+
+      
+
+
     useEffect(() => {
         for (let i = 0; i < currentOrder?.orderItems?.length; i++) {
         total += currentOrder?.orderItems[i]['price'] * currentOrder?.orderItems[i]['quantity'];
@@ -186,6 +207,14 @@ const Orders = () => {
                 </Grid>
             </Grid>
         </ListItem>
+        <ListItem>
+            <Grid container>
+                <Grid item xs={12}>
+                    <Button  variant='contained' sx={{borderRadius: '5px', backgroundColor: 'black',}} onClick={() => handleCheckout()}>Checkout</Button>                     
+                </Grid>
+                
+            </Grid>
+        </ListItem>
         {/* <ListItem>
             {order?.isPaid ? 'Paid Successfully' : 
             clicked ? <Box sx={{border: '1px solid #ffffff',}}>Paid Successfully</Box>: 
@@ -195,8 +224,9 @@ const Orders = () => {
         </ListItem> */}
     </List>                 
     </Card> 
-    </Grid>                     
     </Grid>
+    </Grid>
+    
     </div>
     )
     }

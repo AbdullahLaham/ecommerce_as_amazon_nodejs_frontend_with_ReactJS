@@ -197,18 +197,28 @@ const getAnOrder = async (id) => {
     return res.data;
 }
 
-
-
-const updateUser = async (data) => {
-
-    const res = await API.put(`/user/edit-user`, data);
-    
+const addToWishlist = async (productId) => {
+    const res = await API.put(`/product/wishlist`, {productId});
     console.log(res);
 
     if (res.data) {
         return res.data;
     }
 
+    return res.data;
+}
+
+
+const updateUser = async (data) => {
+
+    const res = await API.put(`/user/edit-user`, data);
+    
+    if (res.data) {
+        localStorage.setItem('auth',  JSON.stringify(res.data))
+        return res.data;
+    }
+
+    
     return res.data;
 }
 
@@ -247,6 +257,7 @@ const authService = {
     updateUser,
     forgotPassword,
     resetPassword,
+    addToWishlist
 }
 
 

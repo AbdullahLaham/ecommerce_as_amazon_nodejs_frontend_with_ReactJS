@@ -57,7 +57,7 @@ const Home = () => {
       
         <section className=''>
           <div className='flex flex-col lg:flex-row  gap-2 justify-center mx-[.5rem] my-2'>
-            <div className='min-h-[100%] min-w-[100%] w-[100%]  lg:w-[50%] lg:min-w-[50%]  max-h-[100%] '>
+            <div className='  min-w-[100%] w-[100%]  lg:w-[50%] lg:min-w-[50%]  max-h-[100%] '>
             <Swiper
               // install Swiper modules
                   modules={[Pagination, Autoplay]}
@@ -77,8 +77,8 @@ const Home = () => {
             >
 
               <SwiperSlide>
-                <div className='relative w-[100%] '>
-                  <img src='images/catbanner-01.jpg' className='rounded-md lg:h-[25rem] w-[100%]'/>
+                <div className='relative w-[100%]'>
+                  <img src='images/catbanner-01.jpg' className='rounded-md lg:h-[27.5rem] w-[100%]'/>
                   <div className='absolute top-[10%] left-[5%] text-white text-2xl '>
                     <h4 className='text-[#bf4800] text-[1.7rem] font-bold  my-[12px] uppercase tracking-[.5px]		'>SUPERCHARGED FOR PROS.</h4>
                     <h5 className='lg:leading-[60px]  lg:text-[2.5rem] text-[1.8rem] -tracking-[2px] font-bold transform-none' >
@@ -91,8 +91,8 @@ const Home = () => {
                 </div>
               </SwiperSlide>
               <SwiperSlide>
-                <div className='relative w-[100%] '>
-                  <img src='images/catbanner-02.jpg' className='rounded-md lg:h-[25rem] w-[100%]'/>
+                <div className='relative w-[100%]'>
+                  <img src='images/catbanner-02.jpg' className='rounded-md lg:h-[27.5rem] w-[100%]'/>
                   <div className='absolute top-[10%] left-[5%] text-white text-2xl '>
                     <h4 className='text-[#bf4800] text-[1.7rem] font-bold my-[12px] uppercase tracking-[.5px]		'>SUPERCHARGED FOR PROS.</h4>
                     <h5 className='lg:leading-[60px]  lg:text-[2.5rem] text-[1.8rem] -tracking-[2px] font-bold transform-none' >
@@ -105,8 +105,8 @@ const Home = () => {
                 </div>
               </SwiperSlide>
               <SwiperSlide>
-                <div className='relative w-[100%] '>
-                  <img src='images/catbanner-03.jpg' className='rounded-md lg:h-[25rem] w-[100%]'/>
+                <div className='relative w-[100%]'>
+                  <img src='images/catbanner-03.jpg' className='rounded-md lg:h-[27.5rem] w-[100%]'/>
                   <div className='absolute top-[10%] left-[5%] text-white text-2xl '>
                     <h4 className='text-[#bf4800] text-[1.7rem] font-bold my-[12px] uppercase tracking-[.5px]		'>SUPERCHARGED FOR PROS.</h4>
                     <h5 className='lg:leading-[60px]  lg:text-[2.5rem] text-[1.8rem] -tracking-[2px] font-bold transform-none' >
@@ -119,8 +119,8 @@ const Home = () => {
                 </div>
               </SwiperSlide>
               <SwiperSlide>
-                <div className='relative w-[100%] '>
-                  <img src='images/catbanner-04.jpg' className='rounded-md lg:h-[25rem] w-[100%]'/>
+                <div className='relative w-[100%]'>
+                  <img src='images/catbanner-04.jpg' className='rounded-md lg:h-[27.5rem] w-[100%]'/>
                   <div className='absolute top-[10%] left-[5%] text-white text-2xl '>
                     <h4 className='text-[#bf4800] text-[1.7rem] font-bold  my-[12px] uppercase tracking-[.5px]		'>SUPERCHARGED FOR PROS.</h4>
                     <h5 className='lg:leading-[60px] lg:text-[2.5rem] text-[1.8rem] -tracking-[2px] font-bold transform-none' >
@@ -136,8 +136,8 @@ const Home = () => {
 
             </div>
             
-            <div className=' lg:max-w-[45%] lg:w-[45%] w-[100%] hidden lg:flex items-center justify-between min-h-[100%] max-h-[100%] '>
-            <div className='jflex flex-col gap-[.2rem] justify-between gap-1rem w-[100%] lg:w-[50%] h-[100%] m-[.2rem]'>
+            <div className=' lg:max-w-[45%] lg:w-[45%] w-[100%] hidden lg:flex items-center justify-between min-h-[100%] '>
+            <div className='jflex flex-col gap-[2rem] justify-between gap-1rem w-[100%] lg:w-[50%] h-[100%] m-[.2rem]'>
               <div className='relative w-[100%]  mx-[.1rem] mt-0 '>
                 <img src='images/catbanner-01.jpg' className='rounded-md w-[40rem]'/>
                 <div className='absolute top-[10%] left-[5%] text-black text-2xl '>
@@ -150,7 +150,7 @@ const Home = () => {
 
                 </div>
               </div>
-              <div className='relative w-[100%] mx-[.1rem] mt-0'>
+              <div className='relative w-[100%] mx-[.1rem] mt-[.5rem]'>
                 <img src='images/catbanner-02.jpg' className='rounded-md w-[40rem]'/>
                 <div className='absolute top-[10%] left-[5%] text-black text-2xl '>
                   <h4 className='text-[#bf4800] text-[1.1rem] font-bold leading-5 my-[12px] uppercase tracking-[.3px]'>NEW ARRIVAL </h4>
@@ -166,32 +166,32 @@ const Home = () => {
 
 
 
-              <div className='flex flex-col gap-[.2rem] justify-between gap-1rem w-[100%] lg:w-[50%] h-[100%] m-[.2rem]'>
-                <div className='relative w-[100%] mx-[.1rem]'>
-                  <img src='images/catbanner-03.jpg' className='rounded-md w-[40rem]'/>
-                  <div className='absolute top-[10%] left-[5%] text-black text-2xl '>
-                    <h4 className='text-[#bf4800] text-[1.1rem] font-bold leading-5 my-[12px] uppercase tracking-[.3px]		'>NEW ARRIVAL</h4>
-                    <h5 className='leading-[20px] text-[1.3rem] -tracking-[.5px] font-bold transform-none' >
-                      iPad S13+ Pro.
-                    </h5>
-                    <p className='leading-[28px] text-[.9rem] font-bold transform-none'>From $999.00 or $41.62/mo</p>
-                    <Link className='text-[.9rem] px-6 bg-[#3a3a3a] hover:bg-[#292929] text-yellow-100 font-semibold rounded-[1rem] '>BUY NOW</Link>
+            <div className='jflex flex-col gap-[.2rem] justify-between gap-1rem w-[100%] lg:w-[50%] h-[100%] m-[.2rem]'>
+              <div className='relative w-[100%]  mx-[.1rem] mt-0 '>
+                <img src='images/catbanner-03.jpg' className='rounded-md w-[40rem]'/>
+                <div className='absolute top-[10%] left-[5%] text-black text-2xl '>
+                  <h4 className='text-[#bf4800] text-[1.1rem] font-bold leading-5 my-[12px] uppercase tracking-[.3px]		'>BEST SALE</h4>
+                  <h5 className='leading-[20px] text-[1.3rem] -tracking-[.5px] font-bold transform-none' >
+                    iPad S13+ Pro.
+                  </h5>
+                  <p className='leading-[28px] text-[.9rem] font-bold transform-none'>From $999.00 or $41.62/mo</p>
+                  <Link className='text-[.9rem] px-6 bg-[#3a3a3a] hover:bg-[#292929] text-yellow-100 font-semibold rounded-[1rem] '>BUY NOW</Link>
 
-                  </div>
-                </div>
-                <div className='relative w-[100%] mx-[.1rem]'>
-                  <img src='images/catbanner-04.jpg' className='rounded-md w-[40rem]'/>
-                  <div className='absolute top-[10%] left-[5%] text-black text-2xl '>
-                    <h4 className='text-[#bf4800] text-[1.1rem] font-bold leading-5 my-[12px] uppercase tracking-[.3px]		'>NEW ARRIVAL</h4>
-                    <h5 className='leading-[20px] text-[1.3rem] -tracking-[.5px] font-bold transform-none' >
-                      iPad S13+ Pro.
-                    </h5>
-                    <p className='leading-[28px] text-[.9rem] font-bold transform-none'>From $999.00 or $41.62/mo</p>
-                    <Link className='text-[.9rem] px-6 bg-[#3a3a3a] hover:bg-[#292929] text-yellow-100 font-semibold rounded-[1rem] '>BUY NOW</Link>
-
-                  </div>
                 </div>
               </div>
+              <div className='relative w-[100%] mx-[.1rem] mt-[.5rem]'>
+                <img src='images/catbanner-04.jpg' className='rounded-md w-[40rem]'/>
+                <div className='absolute top-[10%] left-[5%] text-black text-2xl '>
+                  <h4 className='text-[#bf4800] text-[1.1rem] font-bold leading-5 my-[12px] uppercase tracking-[.3px]'>NEW ARRIVAL </h4>
+                  <h5 className='leading-[20px] text-[1.3rem] -tracking-[.5px] font-bold transform-none' >
+                    iPad S13+ Pro.
+                  </h5>
+                  <p className='leading-[28px] text-[.9rem] font-bold transform-none'>From $999.00 or $41.62/mo</p>
+                  <Link className='text-[.9rem] px-6 bg-[#3a3a3a] hover:bg-[#292929] text-yellow-100 font-semibold rounded-[1rem] '>BUY NOW</Link>
+
+                </div>
+              </div>
+            </div>
 
 
 

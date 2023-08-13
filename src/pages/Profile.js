@@ -21,10 +21,10 @@ const Profile = () => {
   }
   
   let userSchema = yup.object().shape({
-    firstname: yup.string().required('First Name is Required'),
-    lastname: yup.string().required('Last Name is Required'),
-    email: yup.string().email('Email Should be Valid').required('Email is Required'),
-    mobile: yup.string().required('Mobile Number is Required'),
+    firstname: yup.string(),
+    lastname: yup.string(),
+    email: yup.string().email('Email Should be Valid'),
+    mobile: yup.string(),
   });
 
   const formik = useFormik({
@@ -58,13 +58,25 @@ const Profile = () => {
 }
   return (
     <Box sx={{padding: '2rem',}}>
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit} >
           <Typography variant='h4' sx={{marginBottom: '1rem'}} >Update Profile</Typography>
           <Box sx={{display: 'flex', flexDirection: 'column',  width: '80%', gap: '1rem',}} >
             <TextField placeholder='First Name' name='firstname' onChange={formik.handleChange} />
+            {formik.touched.firstname && formik.errors.firstname ? (
+                    <div>{formik.errors.firstname}</div>
+                  ) : null}
             <TextField placeholder='Last Name' name='lastname' onChange={formik.handleChange} />
+            {formik.touched.lastname && formik.errors.lastname ? (
+                    <div>{formik.errors.lastname}</div>
+                  ) : null}
             <TextField placeholder='Email Address' name='email' onChange={formik.handleChange} />
+            {formik.touched.email && formik.errors.email ? (
+                    <div>{formik.errors.email}</div>
+                  ) : null}
             <TextField placeholder='Mobile Number' name='mobile' onChange={formik.handleChange} />
+            {formik.touched.mobile && formik.errors.mobile ? (
+                    <div>{formik.errors.mobile}</div>
+                  ) : null}
             <Button type='submit' variant='contained' sx={{width: '10rem'}}>Submit</Button>
           </Box>
         </form>

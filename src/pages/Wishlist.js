@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import BreadCrumb from '../components/BreadCrumb'
 import Meta from '../components/Meta'
-import { getWishlist, resetState } from '../features/auth/authSlice';
+import { addToWishlist, getWishlist, resetState } from '../features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToWishlist, deleteFromWishlist } from '../features/product/productSlice';
+import {  deleteFromWishlist } from '../features/product/productSlice';
 import { CircularProgress } from '@mui/material';
 
 const Wishlist = () => {
     const dispatch = useDispatch();
-    const {products, wishlist, addedToWishlist, deletedFromWishlist, isLoading}  = useSelector((state) => state?.auth);
+    const {user, wishlist, addedToWishlist, deletedFromWishlist, isLoading}  = useSelector((state) => state?.auth);
 
     const deleteFromWishlist = async (prodId) => {
         dispatch(addToWishlist(prodId));
@@ -22,7 +22,7 @@ const Wishlist = () => {
 
     useEffect(() => {
         dispatch(getWishlist());
-    }, [addedToWishlist, deletedFromWishlist]);
+    }, [user]);
 
     if (isLoading) {
         return <div className='w-[100%] h-[50vh] flex items-center justify-center'>
@@ -38,12 +38,12 @@ const Wishlist = () => {
         
             {wishlist?.map((item) => {
                 return (
-                    <div className='relative w-[14rem] h-[25rem]  rounded-md p-2 bg-white mb-[1.5rem] '>
+                    <div className='relative lg:w-[14rem] w-[100%] h-[25rem]  rounded-md p-2 bg-white mb-[1.5rem] '>
                         <img src='images/cross.svg' alt='cross' onClick={() => deleteFromWishlist(item?._id)} className='w-[1rem] h-[1rem] cursor-pointer absolute top-5 right-5 ' />
                         <div className=' bg-white mt-[2rem]'>
                             <img src={item?.images[0]?.url || 'images/watch.jpg'} className='w-[12rem] object-cover m-auto ' />
                         </div>
-                        <div className='px-2'>
+                        <div className='px-2 mt-[.8rem]'>
                             <h5 className='title text-[.9rem] leading-[22px] font-semibold my-2 '>
                                 {item?.title}
                             </h5>

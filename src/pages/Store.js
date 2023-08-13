@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import BreadCrumb from '../components/BreadCrumb';
 import Meta from '../components/Meta';
 import ReactStars from "react-rating-stars-component";
-import { MenuItem, Select, FormControl, InputLabel, CircularProgress } from '@mui/material';
+import { MenuItem, Select, FormControl, InputLabel, CircularProgress, useMediaQuery } from '@mui/material';
 import ProductCard from '../components/ProductCard'
 import Colors from '../components/Colors';
 import { getProducts } from '../features/product/productSlice';
@@ -13,6 +13,7 @@ const Store = () => {
   const dispatch = useDispatch();
  const {products, wishlist, addedToWishlist, isLoading}  = useSelector((state) => state?.products);
 
+ const isDisktop = useMediaQuery("(min-width: 1000px)")
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
@@ -199,7 +200,7 @@ const Store = () => {
 
           {/* left section */}
           <div className='flex-1 px-[5px]  rounded-[10px] '>
-            <div className='flex items-center justify-between rounded-[10px] bg-white px-2 mb-2'>
+            <div className='hidden lg:flex items-center justify-between rounded-[10px] bg-white px-2 mb-2'>
               <div className='flex items-center '>
                 <p className='mb-0 font-bold text-lg w-[80px]'>Sort By:</p>
 
@@ -259,7 +260,7 @@ const Store = () => {
               {products?.map((product) => {
                 return (
                   
-                  <ProductCard grid={grid} product={product} />
+                  <ProductCard grid={!isDisktop ? 3 : grid} product={product} />
                 )
               })}
             </div>

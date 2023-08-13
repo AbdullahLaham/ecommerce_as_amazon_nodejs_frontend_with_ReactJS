@@ -59,22 +59,6 @@ const Checkout = () => {
   }
 
   
-  const handleCheckout = async () => {
-    try {
-      const res = await API.post('/stripe/create-checkout-session', {
-        cartItems: currentCart,
-        userId: user?._id,
-        orderData: formik.values,
-      });
-      if (res.data.url) {
-        window.location.href = res.data.url;
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-
-  }
-
 
 
 

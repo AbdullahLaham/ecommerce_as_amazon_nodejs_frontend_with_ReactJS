@@ -67,6 +67,7 @@ const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
       setMessages([...messages, recieveMessage]);
     }
   }, [recieveMessage])
+  
   const handleChange = (newMessage) => {
     setNewMessage(newMessage);
   }
@@ -84,6 +85,8 @@ const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
       text: newMessage,
       chatId: chat?._id,
     }
+    const {_id: recieverId} = chat?.members.find((member) => member?._id !== currentUserId);
+    setSendMessage({...message, recieverId});
     setCurrentMessage(message)
     // send message to the database
     try {
@@ -96,8 +99,7 @@ const ChatBox = ({chat, currentUserId, setSendMessage, recieveMessage}) => {
     }
 
     // send message to the socket server
-    const recieverId = chat?.members.find((member) => member?._id !== currentUserId);
-    setSendMessage({...message, recieverId});
+    
   }
   return (
     <>

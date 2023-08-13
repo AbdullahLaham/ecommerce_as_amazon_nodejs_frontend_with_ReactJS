@@ -4,8 +4,8 @@ import ReactStars from "react-rating-stars-component";
 import {BsHeart, BsShare, BsEye, BsHandbag, BsFillHeartFill} from 'react-icons/bs';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToWishlist, getAProduct } from '../features/product/productSlice';
-import { getWishlist } from '../features/auth/authSlice';
+import {  getAProduct } from '../features/product/productSlice';
+import { addToWishlist, getWishlist } from '../features/auth/authSlice';
 const ProductCard = ({grid, product}) => {
     
     const [rating, setRating] = useState(0);
@@ -36,7 +36,7 @@ const ProductCard = ({grid, product}) => {
     }
     
   return (
-    <div className={`product-card bg-white ${grid == 3 ? 'flex': ""} mb-2 min-w-[15rem] items-center rounded-md relative product-card gr-${grid} px-2 py-2`}>
+    <div className={`product-card bg-white ${grid == 3 ? 'flex': ""} mb-2 min-w-[15rem] items-center rounded-md relative product-card gr-${grid} px-2 py-2 min-h-[26rem]`}>
         <button  className='cursor-pointer  p-1 rounded-full hover:text-red-500 font-bold absolute top-2 right-[1rem]'>
             {console.log(wishlist?.findIndex((item) => item?._id == product?._id))}
             {selected ? <BsFillHeartFill className='fill-red-500' onClick={() => setSelected(false)} /> : wishlist?.findIndex((item) => item?._id == product?._id) !== -1 ?  <BsFillHeartFill className='fill-red-500' onClick={() => setSelected(false)} /> : <BsHeart onClick={() => {setSelected(true); addProductToWishlist()}}className='font-bold' />}

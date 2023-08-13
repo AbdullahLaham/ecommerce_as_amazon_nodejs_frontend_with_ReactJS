@@ -39,16 +39,7 @@ const getAProduct = async (id) => {
     return res.data;
 }
 
-const addToWishlist = async (productId) => {
-    const res = await API.put(`/product/wishlist`, {productId});
-    console.log(res);
 
-    if (res.data) {
-        return res.data;
-    }
-
-    return res.data;
-}
 
 
 const rateProduct = async (data) => {
@@ -67,7 +58,6 @@ const rateProduct = async (data) => {
 
 const productService = {
     getProducts,
-    addToWishlist,
     getAProduct,
     rateProduct
 }
