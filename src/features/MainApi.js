@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const API = axios.create({ baseURL: 'http://localhost:5000/' });
+const API = axios.create({ baseURL: 'https://ecommerce-as-amazon-nodejs-backend.onrender.com/' });
 const user = JSON.parse(localStorage.getItem('auth'));
 
 API.interceptors.request.use((req) => {
