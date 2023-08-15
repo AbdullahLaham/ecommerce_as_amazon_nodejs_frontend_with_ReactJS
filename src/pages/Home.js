@@ -357,7 +357,7 @@ const Home = () => {
                   onSwiper={(swiper) => console.log(swiper)}
                   onSlideChange={() => console.log('slide change')}
             >
-                {products?.map((product) => {
+                {products && products?.map((product) => {
                     // if (product?.tags === 'Featured') {
                       return <SwiperSlide><SpecialProduct product={product} /></SwiperSlide>
 
