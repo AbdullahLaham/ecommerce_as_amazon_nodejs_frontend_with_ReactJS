@@ -11,7 +11,7 @@ import { Box, CircularProgress, useMediaQuery } from '@mui/material';
 import {motion} from 'framer-motion'
 import ProductComp from '../components/ProductComp';
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 
 
