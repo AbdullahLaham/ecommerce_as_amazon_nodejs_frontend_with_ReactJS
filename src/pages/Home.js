@@ -27,7 +27,7 @@ const Home = () => {
   const carousel = useRef();
   const dispatch = useDispatch();
 
-  const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState(0)
 
 
   useEffect(() => {
