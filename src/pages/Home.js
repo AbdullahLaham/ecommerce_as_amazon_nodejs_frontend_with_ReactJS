@@ -31,7 +31,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProducts())
   }, []);
 
 
