@@ -334,17 +334,9 @@ const Home = () => {
 
 
         {/* Featured Collection */}
-        <section>
+        {/* <section>
           <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Featured Collection</h3>
           <div className='flex flex-wrap items-center gap-8 mx-11'>
-            <motion.div className='carousel cursor-grab overflow-hidden ' ref={carousel} >
-                  <motion.div drag='x' dragConstraints={{left: 0, right: width*3}} className='flex bg-lightblue'>
-                    
-                    
-                  </motion.div>
-              </motion.div>
-
-
 
 
               <Swiper
@@ -366,7 +358,7 @@ const Home = () => {
                   }
             </Swiper>
           </div>
-        </section>
+        </section> */}
 
         {/* famous products */}
         <section className='py-5 flex items-center justify-center lg:gap-5 mx-11 gap-2 flex-wrap'>
