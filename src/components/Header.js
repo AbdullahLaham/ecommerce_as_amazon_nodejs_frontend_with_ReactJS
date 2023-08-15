@@ -44,14 +44,16 @@ const Header = () => {
 
     useEffect(() => {
         dispatch(getUserCart(user?._id));
-        setProductOptions(products?.map((item, i) => {
-            return {
-                id: i,
-                value: item?._id,
-                label: item?.title,
-                
-            }
-        }))
+        if (products?.length > 0) {
+            setProductOptions(products?.map((item, i) => {
+                return {
+                    id: i,
+                    value: item?._id,
+                    label: item?.title,
+                    
+                }
+            }))
+        }
     }, []);
 
 
