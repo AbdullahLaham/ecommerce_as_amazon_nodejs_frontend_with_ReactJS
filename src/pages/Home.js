@@ -363,7 +363,7 @@ const Home = () => {
         {/* famous products */}
         <section className='py-5 flex items-center justify-center lg:gap-5 mx-11 gap-2 flex-wrap'>
         <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Famous Products</h3>
-          <div className='relative w-[100%]  lg:w-[15rem] rounded-[1rem]'>
+          <div className='relative w-[100%]  lg:w-[13rem] rounded-[1rem]'>
             <img src='images/famous-1.webp' alt='product' className='object-cover' />
             <div className='card-content absolute top-[13%] left-[7%] font-semibold  text-white'>
               <h5 className='text-[.8rem] text-gray-200 leading-[20px] '>Big Screen</h5>
@@ -372,7 +372,7 @@ const Home = () => {
 
             </div>
           </div>
-          <div className='relative w-[100%]  lg:w-[15rem] rounded-[1rem]'>
+          <div className='relative w-[100%]  lg:w-[13rem] rounded-[1rem]'>
             <img src='images/famous-2.webp' alt='product' className='object-cover' />
             <div className='card-content absolute top-[13%] left-[7%] font-semibold '>
               <h5 className='text-[.8rem] text-gray-400 leading-[20px] '>Big Screen</h5>
@@ -381,7 +381,7 @@ const Home = () => {
 
             </div>
           </div>
-          <div className='relative w-[100%]  lg:w-[15rem] rounded-[1rem]'>
+          <div className='relative w-[100%]  lg:w-[13rem] rounded-[1rem]'>
             <img src='images/famous-3.webp' alt='product' className='object-cover' />
             <div className='card-content absolute top-[13%] left-[7%] font-semibold '>
               <h5 className='text-[.8rem] text-gray-400 leading-[20px] '>Big Screen</h5>
@@ -390,7 +390,7 @@ const Home = () => {
 
             </div>
           </div>
-          <div className='relative w-[100%]  lg:w-[15rem] rounded-[1rem]'>
+          <div className='relative w-[100%]  lg:w-[13rem] rounded-[1rem]'>
             <img src='images/famous-4.webp' alt='product' className='object-cover' />
             <div className='card-content absolute top-[13%] left-[7%] font-semibold '>
               <h5 className='text-[.8rem] text-gray-400 leading-[20px] '>Big Screen</h5>
