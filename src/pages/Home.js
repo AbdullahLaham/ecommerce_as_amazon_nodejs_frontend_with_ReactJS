@@ -334,7 +334,7 @@ const Home = () => {
 
 
         {/* Featured Collection */}
-        {/* <section>
+        <section>
           <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Featured Collection</h3>
           <div className='flex flex-wrap items-center gap-8 mx-11'>
 
@@ -358,11 +358,14 @@ const Home = () => {
                   }
             </Swiper>
           </div>
-        </section> */}
+        </section>
 
         {/* famous products */}
-        <section className='py-5 flex items-center justify-center lg:gap-5 mx-11 gap-2 flex-wrap'>
+
         <h3 className='text-[1.7rem] leading-[32px] tracking-wide font-bold px-11 py-2 '>Famous Products</h3>
+
+        <section className='py-5 flex items-center justify-center lg:gap-5 mx-11 gap-2 flex-wrap'>
+        
           <div className='relative w-[100%]  lg:w-[13rem] rounded-[1rem]'>
             <img src='images/famous-1.webp' alt='product' className='object-cover' />
             <div className='card-content absolute top-[13%] left-[7%] font-semibold  text-white'>
